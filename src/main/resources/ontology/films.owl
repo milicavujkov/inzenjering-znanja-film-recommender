@@ -1,0 +1,78 @@
+@prefix : <http://example.org/films#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/films> a owl:Ontology ;
+  rdfs:label "Films Ontology (TBox)"@en ;
+  rdfs:comment "Modular OWL 2 DL TBox for film domain. Instances are in film-instances.owl"@en .
+
+### Classes
+:Film a owl:Class ; rdfs:label "Film"@en .
+:Person a owl:Class ; rdfs:label "Person"@en .
+:Director a owl:Class ; rdfs:subClassOf :Person ; rdfs:label "Director"@en .
+:Actor a owl:Class ; rdfs:subClassOf :Person ; rdfs:label "Actor"@en .
+:Screenwriter a owl:Class ; rdfs:subClassOf :Person ; rdfs:label "Screenwriter"@en .
+:Composer a owl:Class ; rdfs:subClassOf :Person ; rdfs:label "Composer"@en .
+:Cinematographer a owl:Class ; rdfs:subClassOf :Person ; rdfs:label "Cinematographer"@en .
+:Editor a owl:Class ; rdfs:subClassOf :Person ; rdfs:label "Editor"@en .
+:ProductionCompany a owl:Class ; rdfs:label "Production Company"@en .
+:Country a owl:Class ; rdfs:label "Country"@en .
+:Language a owl:Class ; rdfs:label "Language"@en .
+:Genre a owl:Class ; rdfs:label "Genre"@en .
+:Award a owl:Class ; rdfs:label "Award"@en .
+:Festival a owl:Class ; rdfs:label "Festival"@en .
+:Franchise a owl:Class ; rdfs:label "Franchise"@en .
+:Series a owl:Class ; rdfs:label "Series"@en .
+:Character a owl:Class ; rdfs:label "Character"@en .
+:Role a owl:Class ; rdfs:label "Role"@en .
+:Keyword a owl:Class ; rdfs:label "Keyword"@en .
+
+### Object properties
+:hasGenre a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Genre ; rdfs:label "has genre"@en .
+:directedBy a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Director ; rdfs:subPropertyOf :hasContributor ; rdfs:label "directed by"@en .
+:writtenBy a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Screenwriter ; rdfs:subPropertyOf :hasContributor ; rdfs:label "written by"@en .
+:hasActor a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Actor ; rdfs:subPropertyOf :hasContributor ; rdfs:label "has actor"@en .
+:composedBy a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Composer ; rdfs:subPropertyOf :hasContributor ; rdfs:label "music composed by"@en .
+:shotBy a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Cinematographer ; rdfs:subPropertyOf :hasContributor ; rdfs:label "shot by"@en .
+:editedBy a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Editor ; rdfs:subPropertyOf :hasContributor ; rdfs:label "edited by"@en .
+:hasContributor a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Person ; rdfs:label "has contributor"@en .
+:producedBy a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :ProductionCompany ; rdfs:label "produced by"@en .
+:setInCountry a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Country ; rdfs:label "set in country"@en .
+:spokenInLanguage a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Language ; rdfs:label "spoken in language"@en .
+:partOfFranchise a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Franchise ; rdfs:label "part of franchise"@en .
+:wonAward a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Award ; rdfs:label "won award"@en .
+:nominatedForAward a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Award ; rdfs:label "nominated for award"@en .
+:premieredAtFestival a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Festival ; rdfs:label "premiered at festival"@en .
+:hasSequel a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Film ; rdfs:label "has sequel"@en .
+:hasPrequel a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Film ; rdfs:label "has prequel"@en .
+:featuresCharacter a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Character ; rdfs:label "features character"@en .
+:hasRole a owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Role ; rdfs:label "has role"@en .
+:similarTo a owl:ObjectProperty , owl:SymmetricProperty ; rdfs:domain :Film ; rdfs:range :Film ; rdfs:label "similar to"@en .
+:hasKeyword a owl:ObjectProperty ; rdfs:domain :Film ; rdfs:range :Keyword ; rdfs:label "has keyword"@en .
+
+### Data properties
+:title a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:string ; rdfs:label "title"@en .
+:originalTitle a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:string ; rdfs:label "original title"@en .
+:releaseYear a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:gYear ; rdfs:label "release year"@en .
+:runtimeMinutes a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:integer ; rdfs:label "runtime (min)"@en .
+:imdbRating a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:decimal ; rdfs:label "IMDb rating"@en .
+:boxOfficeUSD a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:decimal ; rdfs:label "box office (USD)"@en .
+:budgetUSD a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:decimal ; rdfs:label "budget (USD)"@en .
+:ageRating a owl:DatatypeProperty ; rdfs:domain :Film ; rdfs:range xsd:string ; rdfs:label "age rating"@en .
+
+:personName a owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:string ; rdfs:label "person name"@en .
+:companyName a owl:DatatypeProperty ; rdfs:domain :ProductionCompany ; rdfs:range xsd:string ; rdfs:label "company name"@en .
+:countryName a owl:DatatypeProperty ; rdfs:domain :Country ; rdfs:range xsd:string ; rdfs:label "country name"@en .
+:languageName a owl:DatatypeProperty ; rdfs:domain :Language ; rdfs:range xsd:string ; rdfs:label "language name"@en .
+:genreName a owl:DatatypeProperty ; rdfs:domain :Genre ; rdfs:range xsd:string ; rdfs:label "genre name"@en .
+:awardName a owl:DatatypeProperty ; rdfs:domain :Award ; rdfs:range xsd:string ; rdfs:label "award name"@en .
+:festivalName a owl:DatatypeProperty ; rdfs:domain :Festival ; rdfs:range xsd:string ; rdfs:label "festival name"@en .
+:keywordText a owl:DatatypeProperty ; rdfs:domain :Keyword ; rdfs:range xsd:string ; rdfs:label "keyword text"@en .
+
+# minimal restriction: at least 1 genre per film
+:Film rdfs:subClassOf [
+  a owl:Restriction ; owl:onProperty :hasGenre ;
+  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass :Genre
+] .

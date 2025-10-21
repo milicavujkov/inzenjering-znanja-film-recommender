@@ -1,0 +1,796 @@
+
+@prefix : <http://example.org/films#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/film-instances> a owl:Ontology ;
+  rdfs:label "Films Ontology (ABox)"@en ;
+  owl:imports <http://example.org/films> .
+
+### Core controlled vocabularies
+:Drama a :Genre
+  ;  :genreName "Drama" .
+
+:Comedy a :Genre
+  ;  :genreName "Comedy" .
+
+:Thriller a :Genre
+  ;  :genreName "Thriller" .
+
+:Action a :Genre
+  ;  :genreName "Action" .
+
+:SciFi a :Genre
+  ;  :genreName "SciFi" .
+
+:Fantasy a :Genre
+  ;  :genreName "Fantasy" .
+
+:Animation a :Genre
+  ;  :genreName "Animation" .
+
+:Romance a :Genre
+  ;  :genreName "Romance" .
+
+:Crime a :Genre
+  ;  :genreName "Crime" .
+
+:War a :Genre
+  ;  :genreName "War" .
+
+:Historical a :Genre
+  ;  :genreName "Historical" .
+
+:Mystery a :Genre
+  ;  :genreName "Mystery" .
+
+:Adventure a :Genre
+  ;  :genreName "Adventure" .
+
+:Horror a :Genre
+  ;  :genreName "Horror" .
+
+:Biography a :Genre
+  ;  :genreName "Biography" .
+
+:Music a :Genre
+  ;  :genreName "Music" .
+
+:English a :Language
+  ;  :languageName "English" .
+
+:Serbian a :Language
+  ;  :languageName "Serbian" .
+
+:French a :Language
+  ;  :languageName "French" .
+
+:German a :Language
+  ;  :languageName "German" .
+
+:Spanish a :Language
+  ;  :languageName "Spanish" .
+
+:Japanese a :Language
+  ;  :languageName "Japanese" .
+
+:Italian a :Language
+  ;  :languageName "Italian" .
+
+:Korean a :Language
+  ;  :languageName "Korean" .
+
+:Portuguese a :Language
+  ;  :languageName "Portuguese" .
+
+:Chinese a :Language
+  ;  :languageName "Chinese" .
+
+:USA a :Country
+  ;  :countryName "USA" .
+
+:UK a :Country
+  ;  :countryName "UK" .
+
+:Serbia a :Country
+  ;  :countryName "Serbia" .
+
+:France a :Country
+  ;  :countryName "France" .
+
+:Germany a :Country
+  ;  :countryName "Germany" .
+
+:Spain a :Country
+  ;  :countryName "Spain" .
+
+:Japan a :Country
+  ;  :countryName "Japan" .
+
+:Italy a :Country
+  ;  :countryName "Italy" .
+
+:SouthKorea a :Country
+  ;  :countryName "SouthKorea" .
+
+:Brazil a :Country
+  ;  :countryName "Brazil" .
+
+:Mexico a :Country
+  ;  :countryName "Mexico" .
+
+:China a :Country
+  ;  :countryName "China" .
+
+:Oscars a :Award
+  ;  :awardName "Oscars" .
+
+:GoldenGlobe a :Award
+  ;  :awardName "GoldenGlobe" .
+
+:BAFTA a :Award
+  ;  :awardName "BAFTA" .
+
+:CannesPalme a :Award
+  ;  :awardName "CannesPalme" .
+
+:BerlinaleGoldenBear a :Award
+  ;  :awardName "BerlinaleGoldenBear" .
+
+:VeniceGoldenLion a :Award
+  ;  :awardName "VeniceGoldenLion" .
+
+:Cesar a :Award
+  ;  :awardName "Cesar" .
+
+:Goya a :Award
+  ;  :awardName "Goya" .
+
+:Cannes a :Festival
+  ;  :festivalName "Cannes" .
+
+:Berlinale a :Festival
+  ;  :festivalName "Berlinale" .
+
+:Venice a :Festival
+  ;  :festivalName "Venice" .
+
+:Sundance a :Festival
+  ;  :festivalName "Sundance" .
+
+:Toronto a :Festival
+  ;  :festivalName "Toronto" .
+
+:WarnerBros a :ProductionCompany
+  ;  :companyName "WarnerBros" .
+
+:Paramount a :ProductionCompany
+  ;  :companyName "Paramount" .
+
+:Universal a :ProductionCompany
+  ;  :companyName "Universal" .
+
+:Fox a :ProductionCompany
+  ;  :companyName "Fox" .
+
+:SonyPictures a :ProductionCompany
+  ;  :companyName "SonyPictures" .
+
+:StudioGhibli a :ProductionCompany
+  ;  :companyName "StudioGhibli" .
+
+:Miramax a :ProductionCompany
+  ;  :companyName "Miramax" .
+
+:Netflix a :ProductionCompany
+  ;  :companyName "Netflix" .
+
+:Toho a :ProductionCompany
+  ;  :companyName "Toho" .
+
+:CJ a :ProductionCompany
+  ;  :companyName "CJ" .
+
+:Columbia a :ProductionCompany
+  ;  :companyName "Columbia" .
+
+:MGM a :ProductionCompany
+  ;  :companyName "MGM" .
+
+:Pixar a :ProductionCompany
+  ;  :companyName "Pixar" .
+
+:DreamWorks a :ProductionCompany
+  ;  :companyName "DreamWorks" .
+
+:Gaumont a :ProductionCompany
+  ;  :companyName "Gaumont" .
+
+:ChristopherNolan a :Director
+  ;  :personName "ChristopherNolan" .
+
+:QuentinTarantino a :Director
+  ;  :personName "QuentinTarantino" .
+
+:HayaoMiyazaki a :Director
+  ;  :personName "HayaoMiyazaki" .
+
+:EmirKusturica a :Director
+  ;  :personName "EmirKusturica" .
+
+:MartinScorsese a :Director
+  ;  :personName "MartinScorsese" .
+
+:RidleyScott a :Director
+  ;  :personName "RidleyScott" .
+
+:FrancisFordCoppola a :Director
+  ;  :personName "FrancisFordCoppola" .
+
+:BongJoonHo a :Director
+  ;  :personName "BongJoonHo" .
+
+:GretaGerwig a :Director
+  ;  :personName "GretaGerwig" .
+
+:DavidFincher a :Director
+  ;  :personName "DavidFincher" .
+
+:DamienChazelle a :Director
+  ;  :personName "DamienChazelle" .
+
+:ToddPhillips a :Director
+  ;  :personName "ToddPhillips" .
+
+:FrankDarabont a :Director
+  ;  :personName "FrankDarabont" .
+
+:LanaWachowski a :Director
+  ;  :personName "LanaWachowski" .
+
+:AkiraKurosawa a :Director
+  ;  :personName "AkiraKurosawa" .
+
+:FernandoMeirelles a :Director
+  ;  :personName "FernandoMeirelles" .
+
+:GuillermoDelToro a :Director
+  ;  :personName "GuillermoDelToro" .
+
+:AlfonsoCuaron a :Director
+  ;  :personName "AlfonsoCuaron" .
+
+:CelineSciamma a :Director
+  ;  :personName "CelineSciamma" .
+
+:JeanPierreJeunet a :Director
+  ;  :personName "JeanPierreJeunet" .
+
+:JamesCameron a :Director
+  ;  :personName "JamesCameron" .
+
+:MilosForman a :Director
+  ;  :personName "MilosForman" .
+
+:RomanPolanski a :Director
+  ;  :personName "RomanPolanski" .
+
+:ParkChanWook a :Director
+  ;  :personName "ParkChanWook" .
+
+:MakotoShinkai a :Director
+  ;  :personName "MakotoShinkai" .
+
+:FlorianHenckelvonDonnersmarck a :Director
+  ;  :personName "FlorianHenckelvonDonnersmarck" .
+
+:RobertoBenigni a :Director
+  ;  :personName "RobertoBenigni" .
+
+:OlivierNakache a :Director
+  ;  :personName "OlivierNakache" .
+
+:EricToledano a :Director
+  ;  :personName "EricToledano" .
+
+:WesAnderson a :Director
+  ;  :personName "WesAnderson" .
+
+:DenisVilleneuve a :Director
+  ;  :personName "DenisVilleneuve" .
+
+:LeonardoDiCaprio a :Actor
+  ;  :personName "LeonardoDiCaprio" .
+
+:MerylStreep a :Actor
+  ;  :personName "MerylStreep" .
+
+:BradPitt a :Actor
+  ;  :personName "BradPitt" .
+
+:MorganFreeman a :Actor
+  ;  :personName "MorganFreeman" .
+
+:NataliePortman a :Actor
+  ;  :personName "NataliePortman" .
+
+:UmaThurman a :Actor
+  ;  :personName "UmaThurman" .
+
+:TildaSwinton a :Actor
+  ;  :personName "TildaSwinton" .
+
+:SongKangHo a :Actor
+  ;  :personName "SongKangHo" .
+
+:KeanuReeves a :Actor
+  ;  :personName "KeanuReeves" .
+
+:MatthewMcConaughey a :Actor
+  ;  :personName "MatthewMcConaughey" .
+
+:JoaquinPhoenix a :Actor
+  ;  :personName "JoaquinPhoenix" .
+
+:RobertDeNiro a :Actor
+  ;  :personName "RobertDeNiro" .
+
+:AlPacino a :Actor
+  ;  :personName "AlPacino" .
+
+:EdwardNorton a :Actor
+  ;  :personName "EdwardNorton" .
+
+:HelenaBonhamCarter a :Actor
+  ;  :personName "HelenaBonhamCarter" .
+
+:KateWinslet a :Actor
+  ;  :personName "KateWinslet" .
+
+:TomHanks a :Actor
+  ;  :personName "TomHanks" .
+
+:RussellCrowe a :Actor
+  ;  :personName "RussellCrowe" .
+
+:ScarlettJohansson a :Actor
+  ;  :personName "ScarlettJohansson" .
+
+:BillMurray a :Actor
+  ;  :personName "BillMurray" .
+
+:HughJackman a :Actor
+  ;  :personName "HughJackman" .
+
+:ChristianBale a :Actor
+  ;  :personName "ChristianBale" .
+
+:BenicioDelToro a :Actor
+  ;  :personName "BenicioDelToro" .
+
+:TonyLeung a :Actor
+  ;  :personName "TonyLeung" .
+
+:ChoiMinSik a :Actor
+  ;  :personName "ChoiMinSik" .
+
+:RyunosukeKamiki a :Actor
+  ;  :personName "RyunosukeKamiki" .
+
+:TakakoMatsu a :Actor
+  ;  :personName "TakakoMatsu" .
+
+:OmarSy a :Actor
+  ;  :personName "OmarSy" .
+
+:FrancoisCluzet a :Actor
+  ;  :personName "FrancoisCluzet" .
+
+:SigourneyWeaver a :Actor
+  ;  :personName "SigourneyWeaver" .
+
+
+### Films
+
+:Inception a :Film
+  ;  :title "Inception"
+  ;  :releaseYear "2010"^^xsd:gYear
+  ;  :hasGenre :SciFi, :Thriller, :Action
+  ;  :directedBy :ChristopherNolan
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :WarnerBros
+  ;  :hasActor :LeonardoDiCaprio
+  ;  :wonAward :BAFTA, :Oscars .
+
+:Underground a :Film
+  ;  :title "Underground"
+  ;  :releaseYear "1995"^^xsd:gYear
+  ;  :hasGenre :Drama, :Comedy, :War
+  ;  :directedBy :EmirKusturica
+  ;  :spokenInLanguage :Serbian
+  ;  :setInCountry :Serbia
+  ;  :producedBy :Paramount
+  ;  :wonAward :CannesPalme .
+
+:SpiritedAway a :Film
+  ;  :title "Spirited Away"
+  ;  :releaseYear "2001"^^xsd:gYear
+  ;  :hasGenre :Animation, :Fantasy, :Adventure
+  ;  :directedBy :HayaoMiyazaki
+  ;  :spokenInLanguage :Japanese
+  ;  :setInCountry :Japan
+  ;  :producedBy :StudioGhibli
+  ;  :wonAward :Oscars .
+
+:TheGodfather a :Film
+  ;  :title "The Godfather"
+  ;  :releaseYear "1972"^^xsd:gYear
+  ;  :hasGenre :Crime, :Drama
+  ;  :directedBy :FrancisFordCoppola
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :Paramount
+  ;  :hasActor :AlPacino
+  ;  :wonAward :Oscars, :GoldenGlobe .
+
+:PulpFiction a :Film
+  ;  :title "Pulp Fiction"
+  ;  :releaseYear "1994"^^xsd:gYear
+  ;  :hasGenre :Crime, :Drama
+  ;  :directedBy :QuentinTarantino
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :Miramax
+  ;  :hasActor :UmaThurman
+  ;  :wonAward :CannesPalme, :Oscars .
+
+:Amelie a :Film
+  ;  :title "Amelie"
+  ;  :releaseYear "2001"^^xsd:gYear
+  ;  :hasGenre :Romance, :Comedy
+  ;  :directedBy :JeanPierreJeunet
+  ;  :spokenInLanguage :French
+  ;  :setInCountry :France
+  ;  :producedBy :Fox
+  ;  :wonAward :BAFTA .
+
+:TheMatrix a :Film
+  ;  :title "The Matrix"
+  ;  :releaseYear "1999"^^xsd:gYear
+  ;  :hasGenre :SciFi, :Action
+  ;  :directedBy :LanaWachowski
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :WarnerBros
+  ;  :hasActor :KeanuReeves
+  ;  :wonAward :BAFTA, :Oscars .
+
+:BladeRunner a :Film
+  ;  :title "Blade Runner"
+  ;  :releaseYear "1982"^^xsd:gYear
+  ;  :hasGenre :SciFi, :Thriller
+  ;  :directedBy :RidleyScott
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :WarnerBros .
+
+:Whiplash a :Film
+  ;  :title "Whiplash"
+  ;  :releaseYear "2014"^^xsd:gYear
+  ;  :hasGenre :Drama, :Music
+  ;  :directedBy :DamienChazelle
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :SonyPictures
+  ;  :wonAward :Oscars .
+
+:Parasite a :Film
+  ;  :title "Parasite"
+  ;  :releaseYear "2019"^^xsd:gYear
+  ;  :hasGenre :Thriller, :Drama
+  ;  :directedBy :BongJoonHo
+  ;  :spokenInLanguage :Korean
+  ;  :setInCountry :SouthKorea
+  ;  :producedBy :CJ
+  ;  :hasActor :SongKangHo
+  ;  :wonAward :Oscars, :CannesPalme .
+
+:BlackCatWhiteCat a :Film
+  ;  :title "Black Cat, White Cat"
+  ;  :releaseYear "1998"^^xsd:gYear
+  ;  :hasGenre :Comedy, :Romance
+  ;  :directedBy :EmirKusturica
+  ;  :spokenInLanguage :Serbian
+  ;  :setInCountry :Serbia
+  ;  :producedBy :Paramount
+  ;  :wonAward :VeniceGoldenLion .
+
+:LaDolceVita a :Film
+  ;  :title "La Dolce Vita"
+  ;  :releaseYear "1960"^^xsd:gYear
+  ;  :hasGenre :Drama
+  ;  :directedBy :FedericoFellini
+  ;  :spokenInLanguage :Italian
+  ;  :setInCountry :Italy
+  ;  :producedBy :Paramount
+  ;  :wonAward :CannesPalme .
+
+:Casablanca a :Film
+  ;  :title "Casablanca"
+  ;  :releaseYear "1942"^^xsd:gYear
+  ;  :hasGenre :Romance, :Drama, :War
+  ;  :directedBy :MichaelCurtiz
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :WarnerBros
+  ;  :wonAward :Oscars .
+
+:SevenSamurai a :Film
+  ;  :title "Seven Samurai"
+  ;  :releaseYear "1954"^^xsd:gYear
+  ;  :hasGenre :Action, :Drama
+  ;  :directedBy :AkiraKurosawa
+  ;  :spokenInLanguage :Japanese
+  ;  :setInCountry :Japan
+  ;  :producedBy :Toho .
+
+:CityofGod a :Film
+  ;  :title "City of God"
+  ;  :releaseYear "2002"^^xsd:gYear
+  ;  :hasGenre :Crime, :Drama
+  ;  :directedBy :FernandoMeirelles
+  ;  :spokenInLanguage :Portuguese
+  ;  :setInCountry :Brazil
+  ;  :producedBy :Universal .
+
+:PansLabyrinth a :Film
+  ;  :title "Pan's Labyrinth"
+  ;  :releaseYear "2006"^^xsd:gYear
+  ;  :hasGenre :Fantasy, :War, :Drama
+  ;  :directedBy :GuillermoDelToro
+  ;  :spokenInLanguage :Spanish
+  ;  :setInCountry :Spain
+  ;  :producedBy :WarnerBros
+  ;  :wonAward :Oscars .
+
+:Roma a :Film
+  ;  :title "Roma"
+  ;  :releaseYear "2018"^^xsd:gYear
+  ;  :hasGenre :Drama
+  ;  :directedBy :AlfonsoCuaron
+  ;  :spokenInLanguage :Spanish
+  ;  :setInCountry :Mexico
+  ;  :producedBy :Netflix
+  ;  :wonAward :Oscars, :GoldenGlobe .
+
+:PortraitofaLadyonFire a :Film
+  ;  :title "Portrait of a Lady on Fire"
+  ;  :releaseYear "2019"^^xsd:gYear
+  ;  :hasGenre :Romance, :Drama
+  ;  :directedBy :CelineSciamma
+  ;  :spokenInLanguage :French
+  ;  :setInCountry :France
+  ;  :producedBy :Fox
+  ;  :wonAward :CannesPalme .
+
+:Joker a :Film
+  ;  :title "Joker"
+  ;  :releaseYear "2019"^^xsd:gYear
+  ;  :hasGenre :Crime, :Drama, :Thriller
+  ;  :directedBy :ToddPhillips
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :WarnerBros
+  ;  :hasActor :JoaquinPhoenix
+  ;  :wonAward :Oscars, :GoldenGlobe .
+
+:TheShawshankRedemption a :Film
+  ;  :title "The Shawshank Redemption"
+  ;  :releaseYear "1994"^^xsd:gYear
+  ;  :hasGenre :Drama
+  ;  :directedBy :FrankDarabont
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :Columbia
+  ;  :hasActor :MorganFreeman .
+
+:Interstellar a :Film
+  ;  :title "Interstellar"
+  ;  :releaseYear "2014"^^xsd:gYear
+  ;  :hasGenre :SciFi, :Adventure, :Drama
+  ;  :directedBy :ChristopherNolan
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :Paramount
+  ;  :hasActor :MatthewMcConaughey
+  ;  :wonAward :BAFTA, :Oscars .
+
+:TheDarkKnight a :Film
+  ;  :title "The Dark Knight"
+  ;  :releaseYear "2008"^^xsd:gYear
+  ;  :hasGenre :Action, :Crime, :Drama
+  ;  :directedBy :ChristopherNolan
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :WarnerBros
+  ;  :hasActor :ChristianBale
+  ;  :wonAward :BAFTA, :Oscars .
+
+:Titanic a :Film
+  ;  :title "Titanic"
+  ;  :releaseYear "1997"^^xsd:gYear
+  ;  :hasGenre :Romance, :Drama
+  ;  :directedBy :JamesCameron
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :Paramount
+  ;  :hasActor :LeonardoDiCaprio, :KateWinslet
+  ;  :wonAward :Oscars, :GoldenGlobe .
+
+:FightClub a :Film
+  ;  :title "Fight Club"
+  ;  :releaseYear "1999"^^xsd:gYear
+  ;  :hasGenre :Drama, :Thriller
+  ;  :directedBy :DavidFincher
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :Fox
+  ;  :hasActor :BradPitt, :EdwardNorton .
+
+:Goodfellas a :Film
+  ;  :title "Goodfellas"
+  ;  :releaseYear "1990"^^xsd:gYear
+  ;  :hasGenre :Crime, :Drama
+  ;  :directedBy :MartinScorsese
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :WarnerBros
+  ;  :hasActor :RobertDeNiro
+  ;  :wonAward :BAFTA, :Oscars .
+
+:ThePrestige a :Film
+  ;  :title "The Prestige"
+  ;  :releaseYear "2006"^^xsd:gYear
+  ;  :hasGenre :Drama, :Mystery
+  ;  :directedBy :ChristopherNolan
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :WarnerBros
+  ;  :hasActor :HughJackman, :ChristianBale, :ScarlettJohansson .
+
+:Alien a :Film
+  ;  :title "Alien"
+  ;  :releaseYear "1979"^^xsd:gYear
+  ;  :hasGenre :Horror, :SciFi
+  ;  :directedBy :RidleyScott
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :Fox
+  ;  :hasActor :SigourneyWeaver
+  ;  :wonAward :BAFTA .
+
+:Gladiator a :Film
+  ;  :title "Gladiator"
+  ;  :releaseYear "2000"^^xsd:gYear
+  ;  :hasGenre :Action, :Drama
+  ;  :directedBy :RidleyScott
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :DreamWorks
+  ;  :hasActor :RussellCrowe
+  ;  :wonAward :Oscars, :GoldenGlobe .
+
+:TheIrishman a :Film
+  ;  :title "The Irishman"
+  ;  :releaseYear "2019"^^xsd:gYear
+  ;  :hasGenre :Crime, :Drama
+  ;  :directedBy :MartinScorsese
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :Netflix
+  ;  :hasActor :RobertDeNiro, :AlPacino .
+
+:OnceUponaTimeinHollywood a :Film
+  ;  :title "Once Upon a Time in Hollywood"
+  ;  :releaseYear "2019"^^xsd:gYear
+  ;  :hasGenre :Comedy, :Drama
+  ;  :directedBy :QuentinTarantino
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :SonyPictures
+  ;  :hasActor :LeonardoDiCaprio, :BradPitt
+  ;  :wonAward :Oscars, :GoldenGlobe .
+
+:Amadeus a :Film
+  ;  :title "Amadeus"
+  ;  :releaseYear "1984"^^xsd:gYear
+  ;  :hasGenre :Drama, :Biography, :Music
+  ;  :directedBy :MilosForman
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :MGM
+  ;  :wonAward :Oscars .
+
+:ThePianist a :Film
+  ;  :title "The Pianist"
+  ;  :releaseYear "2002"^^xsd:gYear
+  ;  :hasGenre :Drama, :Biography, :War
+  ;  :directedBy :RomanPolanski
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :France
+  ;  :producedBy :Miramax
+  ;  :hasActor :AdrienBrody
+  ;  :wonAward :Oscars .
+
+:Oldboy a :Film
+  ;  :title "Oldboy"
+  ;  :releaseYear "2003"^^xsd:gYear
+  ;  :hasGenre :Thriller, :Drama
+  ;  :directedBy :ParkChanWook
+  ;  :spokenInLanguage :Korean
+  ;  :setInCountry :SouthKorea
+  ;  :producedBy :CJ
+  ;  :hasActor :ChoiMinSik .
+
+:YourName a :Film
+  ;  :title "Your Name"
+  ;  :releaseYear "2016"^^xsd:gYear
+  ;  :hasGenre :Animation, :Fantasy, :Romance
+  ;  :directedBy :MakotoShinkai
+  ;  :spokenInLanguage :Japanese
+  ;  :setInCountry :Japan
+  ;  :producedBy :Toho
+  ;  :hasActor :RyunosukeKamiki, :TakakoMatsu .
+
+:ToyStory a :Film
+  ;  :title "Toy Story"
+  ;  :releaseYear "1995"^^xsd:gYear
+  ;  :hasGenre :Animation, :Comedy, :Adventure
+  ;  :directedBy :JohnLasseter
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :Pixar
+  ;  :wonAward :Oscars .
+
+:Ratatouille a :Film
+  ;  :title "Ratatouille"
+  ;  :releaseYear "2007"^^xsd:gYear
+  ;  :hasGenre :Animation, :Comedy
+  ;  :directedBy :BradBird
+  ;  :spokenInLanguage :English
+  ;  :setInCountry :USA
+  ;  :producedBy :Pixar
+  ;  :wonAward :Oscars .
+
+:TheLivesofOthers a :Film
+  ;  :title "The Lives of Others"
+  ;  :releaseYear "2006"^^xsd:gYear
+  ;  :hasGenre :Drama, :Thriller
+  ;  :directedBy :FlorianHenckelvonDonnersmarck
+  ;  :spokenInLanguage :German
+  ;  :setInCountry :Germany
+  ;  :producedBy :SonyPictures
+  ;  :wonAward :Oscars .
+
+:LifeIsBeautiful a :Film
+  ;  :title "Life Is Beautiful"
+  ;  :releaseYear "1997"^^xsd:gYear
+  ;  :hasGenre :Comedy, :Drama, :War
+  ;  :directedBy :RobertoBenigni
+  ;  :spokenInLanguage :Italian
+  ;  :setInCountry :Italy
+  ;  :producedBy :Miramax
+  ;  :wonAward :Oscars .
+
+:TheIntouchables a :Film
+  ;  :title "The Intouchables"
+  ;  :releaseYear "2011"^^xsd:gYear
+  ;  :hasGenre :Drama, :Comedy
+  ;  :directedBy :OlivierNakache
+  ;  :spokenInLanguage :French
+  ;  :setInCountry :France
+  ;  :producedBy :Gaumont
+  ;  :hasActor :OmarSy, :FrancoisCluzet .
