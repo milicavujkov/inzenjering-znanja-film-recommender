@@ -1,0 +1,27 @@
+PREFIX : <http://example.org/films#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?title ?year ?director (GROUP_CONCAT(DISTINCT ?genreName; separator=", ") AS ?genres) ?score
+WHERE {
+    ?film rdf:type :Film ;
+    :title ?title .
+
+    OPTIONAL { ?film :releaseYear ?year }
+    OPTIONAL { ?film :directedBy ?dir . ?dir :personName ?director }
+    OPTIONAL { ?film :hasGenre ?g . ?g :genreName ?genreName }
+
+    BIND(
+    (IF(BOUND(?G) && EXISTS { ?film :hasGenre ?G }, 1, 0)
+    + IF(BOUND(?D) && EXISTS { ?film :directedBy ?D }, 1, 0)
+    + IF(BOUND(?A) && EXISTS { ?film :hasActor ?A }, 1, 0)
+    + IF(BOUND(?L) && EXISTS { ?film :spokenInLanguage ?L }, 1, 0)
+    + IF(BOUND(?yearFrom) && BOUND(?yearTo)
+    && EXISTS { ?film :releaseYear ?Y . FILTER(?Y >= ?yearFrom && ?Y <= ?yearTo) }, 1, 0)
+    ) AS ?score
+    )
+}
+GROUP BY ?film ?title ?year ?director ?score
+HAVING (?score > 0)
+ORDER BY DESC(?score) ?title
+LIMIT 100

@@ -1,0 +1,22 @@
+PREFIX : <http://example.org/films#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?title ?year ?director (GROUP_CONCAT(DISTINCT ?genreName; separator=", ") AS ?genres)
+WHERE {
+    ?film rdf:type :Film ; :title ?title .
+
+    OPTIONAL { ?film :releaseYear ?year }
+    OPTIONAL { ?film :directedBy ?dir . ?dir :personName ?director }
+    OPTIONAL { ?film :hasGenre ?g . ?g :genreName ?genreName }
+
+    FILTER( !BOUND(?G) || EXISTS { ?film :hasGenre ?G } )
+    FILTER( !BOUND(?D) || EXISTS { ?film :directedBy ?D } )
+    FILTER( !BOUND(?A) || EXISTS { ?film :hasActor ?A } )
+    FILTER( !BOUND(?L) || EXISTS { ?film :spokenInLanguage ?L } )
+    FILTER( !BOUND(?yearFrom) || !BOUND(?yearTo)
+    || EXISTS { ?film :releaseYear ?Y . FILTER(?Y >= ?yearFrom && ?Y <= ?yearTo) } )
+}
+GROUP BY ?film ?title ?year ?director
+ORDER BY ?title
+LIMIT 100
