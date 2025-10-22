@@ -649,7 +649,7 @@
     :wonAward :OscarBestPicture, :OscarBestDirector .
 
 # bad films for fuzzy testing
-# 40. The Room (2003) - Famous bad movie
+# 40. The Room (2003)
 :TheRoom a :Film ;
     :title "The Room" ;
     :releaseYear "2003"^^xsd:gYear ;
@@ -660,7 +660,7 @@
     :hasGenre :Drama, :Romance ;
     :spokenInLanguage :English .
 
-# 41. Cats (2019) - Recent flop
+# 41. Cats (2019)
 :Cats a :Film ;
     :title "Cats" ;
     :releaseYear "2019"^^xsd:gYear ;
@@ -671,7 +671,7 @@
     :hasGenre :Comedy, :Drama, :Fantasy ;
     :spokenInLanguage :English .
 
-# 42. Battlefield Earth (2000) - Notorious flop
+# 42. Battlefield Earth (2000)
 :BattlefieldEarth a :Film ;
     :title "Battlefield Earth" ;
     :releaseYear "2000"^^xsd:gYear ;
@@ -682,7 +682,7 @@
     :hasGenre :Action, :SciFi ;
     :spokenInLanguage :English .
 
-# 43. Gigli (2003) - Box office disaster
+# 43. Gigli (2003)
 :Gigli a :Film ;
     :title "Gigli" ;
     :releaseYear "2003"^^xsd:gYear ;
@@ -693,7 +693,7 @@
     :hasGenre :Comedy, :Crime, :Romance ;
     :spokenInLanguage :English .
 
-# 44. Jack and Jill (2011) - Critically panned
+# 44. Jack and Jill (2011)
 :JackandJill a :Film ;
     :title "Jack and Jill" ;
     :releaseYear "2011"^^xsd:gYear ;

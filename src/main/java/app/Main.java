@@ -23,7 +23,11 @@ public class Main {
 
         while (true) {
             printHeader();
-            String choice = getChoice(in);
+
+            String choice;
+            do {
+                choice = getChoice(in);
+            } while (choice.isEmpty());
 
             if (choice.equalsIgnoreCase("q")) {
                 System.out.println("\nExiting Film Recommender. Goodbye!\n");
@@ -33,7 +37,10 @@ public class Main {
             switch (choice) {
                 case "1" -> performRecommendation(in);
                 case "2" -> performQualityAssessment(in);
-                default -> System.out.println("Invalid choice. Please try again.");
+                default -> {
+                    System.out.println("Invalid choice. Please try again.");
+                    continue;
+                }
             }
 
             System.out.println();
@@ -148,7 +155,6 @@ public class Main {
                 printFormattedResults(rs, mode.equals("2"));
             }
         }
-        //System.out.print("\n");
     }
 
     private static void performQualityAssessment(Scanner in) {
@@ -217,6 +223,7 @@ public class Main {
         }
 
         System.out.println();
+        System.out.flush();
     }
 
     private static String extractYear(String yearLiteral) {
