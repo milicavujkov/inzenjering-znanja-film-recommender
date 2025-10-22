@@ -1,0 +1,97 @@
+FUNCTION_BLOCK filmQuality
+
+VAR_INPUT
+    overallRating : REAL;
+    boxOfficeSuccess : REAL;
+    awardsCount : REAL;
+    culturalAge : REAL;
+    criticalAcclaim : REAL;
+END_VAR
+
+VAR_OUTPUT
+    quality : REAL;
+END_VAR
+
+FUZZIFY overallRating
+    TERM poor := (0, 1) (4, 1) (6, 0);
+    TERM average := (5, 0) (7, 1) (8.5, 0);
+    TERM excellent := (8, 0) (9, 1) (10, 1);
+END_FUZZIFY
+
+FUZZIFY boxOfficeSuccess
+    TERM flop := (0, 1) (1, 1) (2, 0);
+    TERM moderate := (1.5, 0) (3, 1) (5, 0);
+    TERM blockbuster := (4, 0) (7, 1) (10, 1);
+END_FUZZIFY
+
+FUZZIFY awardsCount
+    TERM none := (0, 1) (1, 1) (2, 0);
+    TERM some := (1, 0) (3, 1) (5, 0);
+    TERM many := (4, 0) (7, 1) (10, 1);
+END_FUZZIFY
+
+FUZZIFY culturalAge
+    TERM recent := (0, 1) (10, 1) (25, 0);
+    TERM classic := (20, 0) (40, 1) (60, 0);
+    TERM legendary := (50, 0) (70, 1) (100, 1);
+END_FUZZIFY
+
+FUZZIFY criticalAcclaim
+    TERM low := (0, 1) (3, 1) (5, 0);
+    TERM moderate := (4, 0) (6, 1) (8, 0);
+    TERM high := (7, 0) (9, 1) (10, 1);
+END_FUZZIFY
+
+DEFUZZIFY quality
+    TERM poor := (0, 1) (20, 1) (40, 0);
+    TERM good := (35, 0) (55, 1) (75, 0);
+    TERM excellent := (70, 0) (85, 1) (100, 1);
+    METHOD : COG;
+    DEFAULT := 50;
+END_DEFUZZIFY
+
+RULEBLOCK rules
+    AND : MIN;
+    OR : MAX;
+    ACT : MIN;
+    ACCU : MAX;
+
+    RULE 1 : IF overallRating IS excellent AND criticalAcclaim IS high
+             THEN quality IS excellent;
+
+    RULE 2 : IF overallRating IS excellent AND awardsCount IS many
+             THEN quality IS excellent;
+
+    RULE 3 : IF overallRating IS poor OR criticalAcclaim IS low
+             THEN quality IS poor;
+
+    RULE 4 : IF boxOfficeSuccess IS blockbuster AND overallRating IS excellent
+             THEN quality IS excellent;
+
+    RULE 5 : IF boxOfficeSuccess IS flop AND overallRating IS poor
+             THEN quality IS poor;
+
+    RULE 6 : IF culturalAge IS legendary AND overallRating IS excellent
+             THEN quality IS excellent;
+
+    RULE 7 : IF awardsCount IS many AND criticalAcclaim IS high
+             THEN quality IS excellent;
+
+    RULE 8 : IF overallRating IS average AND boxOfficeSuccess IS moderate
+             THEN quality IS good;
+
+    RULE 9 : IF culturalAge IS classic AND awardsCount IS some
+             THEN quality IS good;
+
+    RULE 10 : IF overallRating IS excellent AND boxOfficeSuccess IS flop
+              THEN quality IS good;
+
+    RULE 11 : IF criticalAcclaim IS moderate AND awardsCount IS some
+              THEN quality IS good;
+
+    RULE 12 : IF overallRating IS poor AND awardsCount IS none
+              THEN quality IS poor;
+
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK

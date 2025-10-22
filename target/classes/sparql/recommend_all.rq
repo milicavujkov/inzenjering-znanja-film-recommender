@@ -14,8 +14,8 @@ WHERE {
     FILTER( !BOUND(?D) || EXISTS { ?film :directedBy ?D } )
     FILTER( !BOUND(?A) || EXISTS { ?film :hasActor ?A } )
     FILTER( !BOUND(?L) || EXISTS { ?film :spokenInLanguage ?L } )
-    FILTER( !BOUND(?yearFrom) || !BOUND(?yearTo)
-    || EXISTS { ?film :releaseYear ?Y . FILTER(?Y >= ?yearFrom && ?Y <= ?yearTo) } )
+    FILTER( !BOUND(?yearFrom) || EXISTS { ?film :releaseYear ?Y . FILTER(?Y >= ?yearFrom) } )
+    FILTER( !BOUND(?yearTo) || EXISTS { ?film :releaseYear ?Y . FILTER(?Y <= ?yearTo) } )
 }
 GROUP BY ?film ?title ?year ?director
 ORDER BY ?title

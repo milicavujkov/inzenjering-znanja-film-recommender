@@ -1,5 +1,6 @@
 package app;
 
+import fuzzy.FuzzyFilmQualitySystem;
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
@@ -22,17 +23,21 @@ public class Main {
 
         while (true) {
             printHeader();
-            String mode = getMode(in);
+            String choice = getChoice(in);
 
-            if (mode.equalsIgnoreCase("q")) {
+            if (choice.equalsIgnoreCase("q")) {
                 System.out.println("\nExiting Film Recommender. Goodbye!\n");
                 break;
             }
 
-            performSearch(in, mode);
+            switch (choice) {
+                case "1" -> performRecommendation(in);
+                case "2" -> performQualityAssessment(in);
+                default -> System.out.println("Invalid choice. Please try again.");
+            }
 
             System.out.println();
-            System.out.print("Press ENTER to search again, or type 'Q' to quit: ");
+            System.out.print("Press ENTER to continue, or type 'Q' to quit: ");
             String next = in.nextLine().trim();
             if (next.equalsIgnoreCase("q")) {
                 System.out.println("\nExiting Film Recommender. Goodbye!\n");
@@ -63,30 +68,32 @@ public class Main {
 
     private static void printHeader() {
         System.out.println("\nFILM RECOMMENDER SYSTEM");
+        System.out.println("\nSelect function:");
+        System.out.println("  [1] RECOMMEND  - Find films matching criteria");
+        System.out.println("  [2] ASSESS     - Evaluate film quality using fuzzy logic");
+        System.out.println("  [Q] QUIT       - Exit application");
+    }
+
+    private static String getChoice(Scanner in) {
+        System.out.print("\nYour choice [1/2/Q]: ");
+        String choice = in.nextLine().trim();
+        return choice;
+    }
+
+    private static void performRecommendation(Scanner in) throws Exception {
         System.out.println("\nSelect recommendation mode:");
         System.out.println("  [1] STRICT  - All specified criteria must match");
         System.out.println("  [2] RANKED  - Films ranked by number of matching criteria");
-        System.out.println("  [Q] QUIT    - Exit application");
-    }
 
-    private static String getMode(Scanner in) {
-        System.out.print("\nYour choice [1/2/Q, default: 2]: ");
+        System.out.print("\nMode [1/2, default: 2]: ");
         String mode = in.nextLine().trim();
         if (mode.isEmpty()) mode = "2";
 
-        if (!mode.equals("1") && !mode.equals("2") && !mode.equalsIgnoreCase("q")) {
-            System.out.println("Invalid choice. Defaulting to RANKED mode.");
-            return "2";
-        }
-
-        return mode;
-    }
-
-    private static void performSearch(Scanner in, String mode) throws Exception {
         String queryRes = mode.equals("1")
                 ? "/sparql/recommend_all.rq"
                 : "/sparql/recommend_any.rq";
 
+        System.out.println("\nFILM RECOMMENDATIONS");
         System.out.println("\nEnter search criteria (leave empty to skip):");
 
         System.out.print("Genre (e.g., SciFi, Drama): ");
@@ -141,7 +148,34 @@ public class Main {
                 printFormattedResults(rs, mode.equals("2"));
             }
         }
-        System.out.print("\n");
+        //System.out.print("\n");
+    }
+
+    private static void performQualityAssessment(Scanner in) {
+        System.out.println("\nFILM QUALITY ASSESSMENT");
+        listAllFilms();
+        System.out.print("\nEnter film title: ");
+        String filmTitle = in.nextLine().trim();
+
+        if (filmTitle.isEmpty()) {
+            System.out.println("Film title cannot be empty.");
+            return;
+        }
+
+        try {
+            FuzzyFilmQualitySystem fuzzySystem = new FuzzyFilmQualitySystem();
+            FuzzyFilmQualitySystem.FilmQualityResult result = fuzzySystem.evaluateFilm(filmTitle, model);
+
+            if (result == null) {
+                System.out.println("\nFilm not found: " + filmTitle);
+                System.out.println("Perhaps check the spelling and try again.");
+            } else {
+                System.out.println(result);
+            }
+        } catch (Exception e) {
+            System.err.println("Error during quality assessment: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private static void printFormattedResults(ResultSet rs, boolean showScore) {
@@ -199,5 +233,27 @@ public class Main {
 
     private static String strip(String s) {
         return s.replaceAll("[\\s,'']", "");
+    }
+
+    private static void listAllFilms() {
+        String sparql =
+                "PREFIX : <http://example.org/films#> " +
+                        "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+                        "SELECT ?title WHERE { ?film rdf:type :Film ; :title ?title } ORDER BY ?title";
+
+        try (QueryExecution qexec = QueryExecution.create()
+                .query(QueryFactory.create(sparql))
+                .model(model)
+                .build()) {
+
+            ResultSet rs = qexec.execSelect();
+            System.out.println("\nAvailable films:");
+            int count = 0;
+            while (rs.hasNext()) {
+                System.out.println("  - " + rs.next().getLiteral("title").getString());
+                count++;
+            }
+            System.out.println("\nTotal: " + count + " films");
+        }
     }
 }

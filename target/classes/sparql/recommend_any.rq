@@ -16,8 +16,11 @@ WHERE {
     + IF(BOUND(?D) && EXISTS { ?film :directedBy ?D }, 1, 0)
     + IF(BOUND(?A) && EXISTS { ?film :hasActor ?A }, 1, 0)
     + IF(BOUND(?L) && EXISTS { ?film :spokenInLanguage ?L }, 1, 0)
-    + IF(BOUND(?yearFrom) && BOUND(?yearTo)
-    && EXISTS { ?film :releaseYear ?Y . FILTER(?Y >= ?yearFrom && ?Y <= ?yearTo) }, 1, 0)
+    + IF((BOUND(?yearFrom) || BOUND(?yearTo)) &&
+    EXISTS { ?film :releaseYear ?Y .
+    FILTER((!BOUND(?yearFrom) || ?Y >= ?yearFrom) &&
+    (!BOUND(?yearTo) || ?Y <= ?yearTo))
+    }, 1, 0)
     ) AS ?score
     )
 }
