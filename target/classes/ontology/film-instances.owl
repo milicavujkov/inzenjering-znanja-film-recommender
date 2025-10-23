@@ -92,6 +92,7 @@
 :MakotoShinkai a :Director ; :personName "MakotoShinkai" .
 :BradBird a :Director ; :personName "BradBird" .
 :JohnLasseter a :Director ; :personName "JohnLasseter" .
+:GlennFicarraJohnRequa a :Person ; :personName "GlennFicarraJohnRequa" .
 
 # ==========================
 # ACTORS
@@ -126,6 +127,12 @@
 :MatthewMcConaughey a :Actor ; :personName "MatthewMcConaughey" .
 :AnneHathaway a :Actor ; :personName "AnneHathaway" .
 :HughJackman a :Actor ; :personName "HughJackman" .
+:RyanGosling a :Person ; :personName "RyanGosling" .
+:EmmaStone a :Person ; :personName "EmmaStone" .
+:SteveCarell a :Person ; :personName "SteveCarell" .
+:LiamNeeson a :Person ; :personName "LiamNeeson" .
+:TomHardy a :Person ; :personName "TomHardy" .
+:MichaelCaine a :Person ; :personName "MichaelCaine" .
 
 # ==========================
 # FILMS
@@ -168,7 +175,7 @@
     :runtimeMinutes 152 ;
     :directedBy :ChristopherNolan ;
     :hasGenre :Action, :Crime, :Drama ;
-    :hasActor :ChristianBale, :HeathLedger ;
+    :hasActor :ChristianBale, :HeathLedger, :MichaelCaine ;
     :spokenInLanguage :English ;
     :wonAward :OscarBestActor .
 
@@ -702,4 +709,57 @@
     :budgetUSD "79000000"^^xsd:decimal ;
     :runtimeMinutes 91 ;
     :hasGenre :Comedy, :Family ;
+    :spokenInLanguage :English .
+
+# 45. La La Land (2016)
+:LaLaLand a :Film ;
+    :title "La La Land" ;
+    :releaseYear "2016"^^xsd:gYear ;
+    :imdbRating "8.0"^^xsd:decimal ;
+    :boxOfficeUSD "472000000"^^xsd:decimal ;
+    :budgetUSD "30000000"^^xsd:decimal ;
+    :runtimeMinutes 128 ;
+    :directedBy :DamienChazelle ;
+    :hasGenre :Romance, :Drama, :Music ;
+    :hasActor :RyanGosling, :EmmaStone ;
+    :spokenInLanguage :English ;
+    :wonAward :OscarBestDirector, :OscarBestActress .
+
+# 46. Crazy, Stupid, Love (2011)
+:CrazyStupidLove a :Film ;
+    :title "Crazy, Stupid, Love" ;
+    :releaseYear "2011"^^xsd:gYear ;
+    :imdbRating "7.4"^^xsd:decimal ;
+    :boxOfficeUSD "142000000"^^xsd:decimal ;
+    :budgetUSD "50000000"^^xsd:decimal ;
+    :runtimeMinutes 118 ;
+    :directedBy :GlennFicarraJohnRequa ;
+    :hasGenre :Romance, :Drama, :Comedy ;
+    :hasActor :RyanGosling, :EmmaStone, :SteveCarell ;
+    :spokenInLanguage :English .
+
+# 47. Batman Begins (2005)
+:BatmanBegins a :Film ;
+    :title "Batman Begins" ;
+    :releaseYear "2005"^^xsd:gYear ;
+    :imdbRating "8.2"^^xsd:decimal ;
+    :boxOfficeUSD "375000000"^^xsd:decimal ;
+    :budgetUSD "150000000"^^xsd:decimal ;
+    :runtimeMinutes 140 ;
+    :directedBy :ChristopherNolan ;
+    :hasGenre :Action, :Crime, :Drama ;
+    :hasActor :ChristianBale, :MichaelCaine, :LiamNeeson ;
+    :spokenInLanguage :English .
+
+# 48. The Dark Knight Rises (2012)
+:TheDarkKnightRises a :Film ;
+    :title "The Dark Knight Rises" ;
+    :releaseYear "2012"^^xsd:gYear ;
+    :imdbRating "8.4"^^xsd:decimal ;
+    :boxOfficeUSD "1085000000"^^xsd:decimal ;
+    :budgetUSD "250000000"^^xsd:decimal ;
+    :runtimeMinutes 164 ;
+    :directedBy :ChristopherNolan ;
+    :hasGenre :Action, :Crime, :Drama ;
+    :hasActor :ChristianBale, :MichaelCaine, :TomHardy, :AnneHathaway ;
     :spokenInLanguage :English .

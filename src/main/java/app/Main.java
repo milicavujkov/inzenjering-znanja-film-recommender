@@ -339,6 +339,7 @@ public class Main {
         return s.replaceAll("[\\s,'']", "");
     }
 
+
     private static void listAllFilms() {
         String sparql =
                 "PREFIX : <http://example.org/films#> " +
