@@ -1,6 +1,7 @@
 package app;
 
 import fuzzy.FuzzyFilmQualitySystem;
+import cbr.CaseBasedReasoning;
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
@@ -11,6 +12,7 @@ import org.apache.jena.riot.RDFDataMgr;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.List;
 
 public class Main {
 
@@ -37,6 +39,7 @@ public class Main {
             switch (choice) {
                 case "1" -> performRecommendation(in);
                 case "2" -> performQualityAssessment(in);
+                case "3" -> performCBRRecommendation(in);
                 default -> {
                     System.out.println("Invalid choice. Please try again.");
                     continue;
@@ -77,12 +80,13 @@ public class Main {
         System.out.println("\nFILM RECOMMENDER SYSTEM");
         System.out.println("\nSelect function:");
         System.out.println("  [1] RECOMMEND  - Find films matching criteria");
-        System.out.println("  [2] ASSESS     - Evaluate film quality using fuzzy logic");
+        System.out.println("  [2] ASSESS     - Evaluate film quality (using Fuzzy Logic)");
+        System.out.println("  [3] SIMILAR    - Find similar films (Case-Based Reasoning)");
         System.out.println("  [Q] QUIT       - Exit application");
     }
 
     private static String getChoice(Scanner in) {
-        System.out.print("\nYour choice [1/2/Q]: ");
+        System.out.print("\nYour choice [1/2/3/Q]: ");
         String choice = in.nextLine().trim();
         return choice;
     }
@@ -121,7 +125,6 @@ public class Main {
         System.out.print("Year to (YYYY): ");
         String yearTo = in.nextLine().trim();
 
-        // Load SPARQL query
         String sparql;
         try (InputStream is = Main.class.getResourceAsStream(queryRes)) {
             if (is == null) throw new IllegalArgumentException("SPARQL not found: " + queryRes);
@@ -129,7 +132,6 @@ public class Main {
         }
         Query query = QueryFactory.create(sparql);
 
-        // Bind only non-empty user inputs
         QuerySolutionMap initial = new QuerySolutionMap();
         if (!genre.isEmpty())    initial.add("G", model.createResource(NS + strip(genre)));
         if (!director.isEmpty()) initial.add("D", model.createResource(NS + strip(director)));
@@ -138,7 +140,6 @@ public class Main {
         if (!yearFrom.isEmpty()) initial.add("yearFrom", model.createTypedLiteral(yearFrom, XSDDatatype.XSDgYear));
         if (!yearTo.isEmpty())   initial.add("yearTo", model.createTypedLiteral(yearTo, XSDDatatype.XSDgYear));
 
-        // Execute query
         System.out.println("\nSearch Results:\n");
 
         QueryExecution qexec = QueryExecution.create()
@@ -184,8 +185,105 @@ public class Main {
         }
     }
 
+    private static void performCBRRecommendation(Scanner in) {
+        System.out.println("\nSIMILAR FILMS");
+        listAllFilms();
+
+        System.out.print("\nEnter film title to find similar films: ");
+        String filmTitle = in.nextLine().trim();
+
+        if (filmTitle.isEmpty()) {
+            System.out.println("Film title cannot be empty.");
+            return;
+        }
+
+        int totalFilms = getTotalFilmCount();
+        if (totalFilms <= 1) {
+            System.out.println("Not enough films in database for comparison.");
+            return;
+        }
+
+        int maxPossible = totalFilms - 1;  // exclude-ujem target film
+        int topN = 5;  // default
+
+        System.out.print("How many similar films to show? [1-" + maxPossible + ", default: 5]: ");
+        String topNStr = in.nextLine().trim();
+
+        if (!topNStr.isEmpty()) {
+            try {
+                topN = Integer.parseInt(topNStr);
+
+                if (topN < 1) {
+                    System.out.println("Invalid input. Using default: 5");
+                    topN = 5;
+                } else if (topN > maxPossible) {
+                    System.out.println("Requested number too high. Using maximum: " + maxPossible);
+                    topN = maxPossible;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number format. Using default: 5");
+                topN = 5;
+            }
+        }
+
+        // topN is within bounds
+        topN = Math.max(1, Math.min(topN, maxPossible));
+
+        try {
+            CaseBasedReasoning cbr = new CaseBasedReasoning(model);
+            List<CaseBasedReasoning.SimilarFilm> similarFilms = cbr.findSimilarFilms(filmTitle, topN);
+
+            if (similarFilms.isEmpty()) {
+                System.out.println("\nFilm not found: " + filmTitle);
+                return;
+            }
+
+            System.out.println("\nSimilar Films to \"" + filmTitle + "\"\n");
+
+            System.out.printf("%-5s %-40s %-8s %-8s %-30s %-30s%n",
+                    "Rank", "Title", "Year", "IMDb", "Director", "Genres");
+            System.out.println("=".repeat(130));
+
+            int rank = 1;
+            for (CaseBasedReasoning.SimilarFilm film : similarFilms) {
+                String genres = String.join(", ", film.getGenres());
+                System.out.printf("%-5d %-40s %-8d %-8.1f %-30s %-30s%n",
+                        rank++,
+                        truncate(film.getTitle(), 40),
+                        film.getYear(),
+                        film.getImdbRating(),
+                        truncate(film.getDirector(), 30),
+                        truncate(genres, 30));
+
+                System.out.printf("      Similarity Score: %.0f points%n%n", film.getScore());
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error during CBR recommendation: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static int getTotalFilmCount() {
+        String sparql =
+                "PREFIX : <http://example.org/films#> " +
+                        "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+                        "SELECT (COUNT(?film) AS ?count) WHERE { ?film rdf:type :Film }";
+
+        try (QueryExecution qexec = QueryExecution.create()
+                .query(QueryFactory.create(sparql))
+                .model(model)
+                .build()) {
+
+            ResultSet rs = qexec.execSelect();
+            if (rs.hasNext()) {
+                return rs.next().getLiteral("count").getInt();
+            }
+        }
+        return 0;
+    }
+
     private static void printFormattedResults(ResultSet rs, boolean showScore) {
-        // Header
         if (showScore) {
             System.out.printf("%-40s %-8s %-30s %-30s %-6s%n",
                     "Title", "Year", "Director", "Genres", "Score");
@@ -196,7 +294,6 @@ public class Main {
             System.out.println("=".repeat(110));
         }
 
-        // Results
         while (rs.hasNext()) {
             QuerySolution sol = rs.next();
 
