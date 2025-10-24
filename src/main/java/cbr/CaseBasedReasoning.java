@@ -43,7 +43,9 @@ public class CaseBasedReasoning {
                         desc.getYear(),
                         desc.getImdbRating(),
                         desc.getDirector(),
-                        parseGenres(desc.getGenres())
+                        parseSet(desc.getGenres()),
+                        parseSet(desc.getActors()),
+                        parseSet(desc.getLanguages())
                 );
 
                 similarFilms.add(film);
@@ -57,11 +59,11 @@ public class CaseBasedReasoning {
         }
     }
 
-    private Set<String> parseGenres(String genresStr) {
-        if (genresStr == null || genresStr.isEmpty()) {
+    private Set<String> parseSet(String string) {
+        if (string == null || string.isEmpty()) {
             return new HashSet<>();
         }
-        return Arrays.stream(genresStr.split(","))
+        return Arrays.stream(string.split(","))
                 .map(String::trim)
                 .collect(Collectors.toSet());
     }
@@ -73,15 +75,19 @@ public class CaseBasedReasoning {
         private double imdbRating;
         private String director;
         private Set<String> genres;
+        private Set<String> actors;
+        private Set<String> languages;
 
         public SimilarFilm(String title, double score, int year, double imdbRating,
-                           String director, Set<String> genres) {
+                           String director, Set<String> genres, Set<String> actors, Set<String> languages) {
             this.title = title;
             this.score = score;
             this.year = year;
             this.imdbRating = imdbRating;
             this.director = director;
             this.genres = genres;
+            this.actors = actors;
+            this.languages = languages;
         }
 
         public String getTitle() { return title; }
@@ -90,5 +96,7 @@ public class CaseBasedReasoning {
         public double getImdbRating() { return imdbRating; }
         public String getDirector() { return director; }
         public Set<String> getGenres() { return genres; }
+        public Set<String> getActors() { return actors; }
+        public Set<String> getLanguages() { return languages; }
     }
 }

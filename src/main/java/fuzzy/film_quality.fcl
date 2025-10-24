@@ -1,45 +1,45 @@
 FUNCTION_BLOCK filmQuality
 
 VAR_INPUT
-    overallRating : REAL;
-    boxOfficeSuccess : REAL;
-    awardsCount : REAL;
-    culturalAge : REAL;
-    criticalAcclaim : REAL;
+    directorQuality : REAL;
+    actingQuality : REAL;
+    storyQuality : REAL;
+    visualEffects : REAL;
+    culturalImpact : REAL;
 END_VAR
 
 VAR_OUTPUT
     quality : REAL;
 END_VAR
 
-FUZZIFY overallRating
+FUZZIFY directorQuality
     TERM poor := (0, 1) (4, 1) (6, 0);
-    TERM average := (5, 0) (7, 1) (8.5, 0);
-    TERM excellent := (8, 0) (9, 1) (10, 1);
+    TERM good := (5, 0) (7, 1) (8, 0);
+    TERM excellent := (7.5, 0) (9, 1) (10, 1);
 END_FUZZIFY
 
-FUZZIFY boxOfficeSuccess
-    TERM flop := (0, 1) (1, 1) (2, 0);
-    TERM moderate := (1.5, 0) (3, 1) (5, 0);
-    TERM blockbuster := (4, 0) (7, 1) (10, 1);
+FUZZIFY actingQuality
+    TERM poor := (0, 1) (4, 1) (6, 0);
+    TERM good := (5, 0) (7, 1) (8, 0);
+    TERM excellent := (7.5, 0) (9, 1) (10, 1);
 END_FUZZIFY
 
-FUZZIFY awardsCount
-    TERM none := (0, 1) (1, 1) (2, 0);
-    TERM some := (1, 0) (3, 1) (5, 0);
-    TERM many := (4, 0) (7, 1) (10, 1);
+FUZZIFY storyQuality
+    TERM poor := (0, 1) (4, 1) (6, 0);
+    TERM good := (5, 0) (7, 1) (8, 0);
+    TERM excellent := (7.5, 0) (9, 1) (10, 1);
 END_FUZZIFY
 
-FUZZIFY culturalAge
-    TERM recent := (0, 1) (10, 1) (25, 0);
-    TERM classic := (20, 0) (40, 1) (60, 0);
-    TERM legendary := (50, 0) (70, 1) (100, 1);
+FUZZIFY visualEffects
+    TERM poor := (0, 1) (4, 1) (6, 0);
+    TERM average := (5, 0) (7, 1) (8, 0);
+    TERM stunning := (7.5, 0) (9, 1) (10, 1);
 END_FUZZIFY
 
-FUZZIFY criticalAcclaim
-    TERM low := (0, 1) (3, 1) (5, 0);
-    TERM moderate := (4, 0) (6, 1) (8, 0);
-    TERM high := (7, 0) (9, 1) (10, 1);
+FUZZIFY culturalImpact
+    TERM low := (0, 1) (4, 1) (6, 0);
+    TERM moderate := (5, 0) (7, 1) (8, 0);
+    TERM high := (7.5, 0) (9, 1) (10, 1);
 END_FUZZIFY
 
 DEFUZZIFY quality
@@ -56,41 +56,41 @@ RULEBLOCK rules
     ACT : MIN;
     ACCU : MAX;
 
-    RULE 1 : IF overallRating IS excellent AND criticalAcclaim IS high
+    RULE 1 : IF directorQuality IS excellent AND actingQuality IS excellent AND storyQuality IS excellent
              THEN quality IS excellent;
 
-    RULE 2 : IF overallRating IS excellent AND awardsCount IS many
+    RULE 2 : IF visualEffects IS stunning AND directorQuality IS excellent AND culturalImpact IS high
              THEN quality IS excellent;
 
-    RULE 3 : IF overallRating IS poor OR criticalAcclaim IS low
-             THEN quality IS poor;
-
-    RULE 4 : IF boxOfficeSuccess IS blockbuster AND overallRating IS excellent
+    RULE 3 : IF actingQuality IS excellent AND storyQuality IS excellent AND culturalImpact IS high
              THEN quality IS excellent;
 
-    RULE 5 : IF boxOfficeSuccess IS flop AND overallRating IS poor
-             THEN quality IS poor;
-
-    RULE 6 : IF culturalAge IS legendary AND overallRating IS excellent
-             THEN quality IS excellent;
-
-    RULE 7 : IF awardsCount IS many AND criticalAcclaim IS high
-             THEN quality IS excellent;
-
-    RULE 8 : IF overallRating IS average AND boxOfficeSuccess IS moderate
+    RULE 4 : IF directorQuality IS good AND actingQuality IS good AND storyQuality IS good
              THEN quality IS good;
 
-    RULE 9 : IF culturalAge IS classic AND awardsCount IS some
+    RULE 5 : IF directorQuality IS excellent AND actingQuality IS good AND visualEffects IS average
              THEN quality IS good;
 
-    RULE 10 : IF overallRating IS excellent AND boxOfficeSuccess IS flop
+    RULE 6 : IF storyQuality IS excellent AND actingQuality IS good AND culturalImpact IS moderate
+             THEN quality IS good;
+
+    RULE 7 : IF visualEffects IS stunning AND storyQuality IS good AND actingQuality IS good
+             THEN quality IS good;
+
+    RULE 8 : IF directorQuality IS poor AND storyQuality IS poor
+             THEN quality IS poor;
+
+    RULE 9 : IF actingQuality IS poor AND storyQuality IS poor AND visualEffects IS poor
+             THEN quality IS poor;
+
+    RULE 10 : IF culturalImpact IS high AND directorQuality IS good AND actingQuality IS good AND visualEffects IS average
               THEN quality IS good;
 
-    RULE 11 : IF criticalAcclaim IS moderate AND awardsCount IS some
-              THEN quality IS good;
+    RULE 11 : IF directorQuality IS excellent AND storyQuality IS excellent AND culturalImpact IS high
+              THEN quality IS excellent;
 
-    RULE 12 : IF overallRating IS poor AND awardsCount IS none
-              THEN quality IS poor;
+    RULE 12 : IF directorQuality IS excellent AND actingQuality IS excellent AND storyQuality IS good AND culturalImpact IS high
+              THEN quality IS excellent;
 
 END_RULEBLOCK
 

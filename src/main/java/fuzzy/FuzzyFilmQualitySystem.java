@@ -5,13 +5,15 @@ import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class FuzzyFilmQualitySystem {
 
     private FIS fis;
     private FunctionBlock fb;
 
     public FuzzyFilmQualitySystem() {
-        // load FCL file
         String fclPath = "src/main/java/fuzzy/film_quality.fcl";
         fis = FIS.load(fclPath, true);
 
@@ -23,44 +25,41 @@ public class FuzzyFilmQualitySystem {
     }
 
     public FilmQualityResult evaluateFilm(String filmTitle, Model model) {
-        // extract film data from ontology
         FilmData data = extractFilmData(filmTitle, model);
 
         if (data == null) {
             return null;
         }
 
-        // calculate fuzzy inputs
-        double overallRating = data.imdbRating;
-        double boxOfficeSuccess = calculateBoxOfficeSuccess(data.boxOffice, data.budget);
-        double awardsCount = normalizeAwardsCount(data.awardsCount);
-        double culturalAge = calculateCulturalAge(data.releaseYear);
-        double criticalAcclaim = calculateCriticalAcclaim(data.imdbRating, data.awardsCount);
+        // calculate criteria
+        double directorQuality = calculateDirectorQuality(data);
+        double actingQuality = calculateActingQuality(data);
+        double storyQuality = calculateStoryQuality(data);
+        double visualEffects = calculateVisualEffects(data);
+        double culturalImpact = calculateCulturalImpact(data);
 
         // set fuzzy inputs
-        fb.setVariable("overallRating", overallRating);
-        fb.setVariable("boxOfficeSuccess", boxOfficeSuccess);
-        fb.setVariable("awardsCount", awardsCount);
-        fb.setVariable("culturalAge", culturalAge);
-        fb.setVariable("criticalAcclaim", criticalAcclaim);
+        fb.setVariable("directorQuality", directorQuality);
+        fb.setVariable("actingQuality", actingQuality);
+        fb.setVariable("storyQuality", storyQuality);
+        fb.setVariable("visualEffects", visualEffects);
+        fb.setVariable("culturalImpact", culturalImpact);
 
-        // evaluate
         fb.evaluate();
 
-        // get output
         double quality = fb.getVariable("quality").getValue();
 
         return new FilmQualityResult(filmTitle, quality, data,
-                overallRating, boxOfficeSuccess, awardsCount, culturalAge, criticalAcclaim);
+                directorQuality, actingQuality, storyQuality, visualEffects, culturalImpact);
     }
 
-
     private FilmData extractFilmData(String filmTitle, Model model) {
-        // get basic film data
+        // get basic film data and genres
         String sparql1 =
                 "PREFIX : <http://example.org/films#> " +
                         "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
                         "SELECT ?imdb ?boxOffice ?budget ?year " +
+                        "       (GROUP_CONCAT(DISTINCT ?genreName; separator=\",\") AS ?genres) " +
                         "WHERE { " +
                         "  ?film rdf:type :Film ; " +
                         "        :title ?title ; " +
@@ -68,12 +67,15 @@ public class FuzzyFilmQualitySystem {
                         "  OPTIONAL { ?film :boxOfficeUSD ?boxOffice } " +
                         "  OPTIONAL { ?film :budgetUSD ?budget } " +
                         "  OPTIONAL { ?film :releaseYear ?year } " +
+                        "  OPTIONAL { ?film :hasGenre ?g . ?g :genreName ?genreName } " +
                         "  FILTER(LCASE(STR(?title)) = LCASE(\"" + filmTitle + "\")) " +
-                        "} LIMIT 1";
+                        "} " +
+                        "GROUP BY ?film ?imdb ?boxOffice ?budget ?year";
 
         // defaults
         double imdb = 0, boxOffice = 0, budget = 1;
         int year = 2000;
+        String genres = "";
 
         try (QueryExecution qexec = QueryExecution.create()
                 .query(QueryFactory.create(sparql1))
@@ -82,13 +84,14 @@ public class FuzzyFilmQualitySystem {
 
             ResultSet rs = qexec.execSelect();
             if (!rs.hasNext()) {
-                return null; // film not found
+                return null;
             }
 
             QuerySolution sol = rs.next();
             imdb = sol.getLiteral("imdb").getDouble();
             boxOffice = sol.contains("boxOffice") ? sol.getLiteral("boxOffice").getDouble() : 0;
             budget = sol.contains("budget") ? sol.getLiteral("budget").getDouble() : 1;
+            genres = sol.contains("genres") ? sol.getLiteral("genres").getString() : "";
 
             if (sol.contains("year")) {
                 String yearStr = sol.getLiteral("year").getString();
@@ -96,78 +99,165 @@ public class FuzzyFilmQualitySystem {
             }
         }
 
-        // count awards separately
+        // get awards (categorized)
         String sparql2 =
                 "PREFIX : <http://example.org/films#> " +
                         "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
-                        "SELECT (COUNT(?award) AS ?awards) " +
+                        "SELECT ?awardName " +
                         "WHERE { " +
                         "  ?film rdf:type :Film ; " +
-                        "        :title ?title . " +
-                        "  OPTIONAL { ?film :wonAward ?award } " +
+                        "        :title ?title ; " +
+                        "        :wonAward ?award . " +
+                        "  ?award :awardName ?awardName . " +
                         "  FILTER(LCASE(STR(?title)) = LCASE(\"" + filmTitle + "\")) " +
                         "}";
 
-        int awards = 0;
+        Set<String> awards = new HashSet<>();
         try (QueryExecution qexec = QueryExecution.create()
                 .query(QueryFactory.create(sparql2))
                 .model(model)
                 .build()) {
 
             ResultSet rs = qexec.execSelect();
-            if (rs.hasNext()) {
-                awards = rs.next().getLiteral("awards").getInt();
+            while (rs.hasNext()) {
+                awards.add(rs.next().getLiteral("awardName").getString());
             }
         }
 
-        return new FilmData(imdb, boxOffice, budget, year, awards);
+        return new FilmData(imdb, boxOffice, budget, year, genres, awards);
     }
 
-    private double calculateBoxOfficeSuccess(double boxOffice, double budget) {
-        if (budget == 0) return 5.0; // neutral if no budget data
-        double ratio = boxOffice / budget;
-        // normalize to 0-10 scale
-        if (ratio < 0.5) return 0;
-        if (ratio > 10) return 10;
-        return ratio;
+    private double calculateDirectorQuality(FilmData data) {
+        // check for director awards
+        boolean hasDirectorAward = data.awards.stream()
+                .anyMatch(a -> a.contains("Director"));
+
+        if (hasDirectorAward) {
+            // 95% from award and 5% from IMDb
+            return 9.5 + (data.imdbRating * 0.05);
+        } else {
+            return data.imdbRating;
+        }
     }
 
-    private double normalizeAwardsCount(int awards) {
-        // normalize awards count to 0-10 scale
-        if (awards == 0) return 0;
-        if (awards >= 10) return 10;
-        return awards;
+    private double calculateActingQuality(FilmData data) {
+        // check for acting awards
+        boolean hasActingAward = data.awards.stream()
+                .anyMatch(a -> a.contains("Actor") || a.contains("Actress"));
+
+        if (hasActingAward) {
+            return 9.5 + (data.imdbRating * 0.05);
+        } else {
+            return data.imdbRating;
+        }
     }
 
-    private double calculateCulturalAge(int year) {
-        int currentYear = 2025;
-        int age = currentYear - year;
-        // normalize to 0-100 scale
-        if (age > 100) return 100;
-        return age;
+    private double calculateStoryQuality(FilmData data) {
+        // check for screenplay awards
+        boolean hasScreenplayAward = data.awards.stream()
+                .anyMatch(a -> a.contains("Screenplay") || a.contains("Picture"));
+
+        if (hasScreenplayAward) {
+            return 9.5 + (data.imdbRating * 0.05);
+        } else {
+            return data.imdbRating * 0.95;
+        }
     }
 
-    private double calculateCriticalAcclaim(double imdb, int awards) {
-        // combine IMDb rating and awards
-        double imdbComponent = imdb; // already 0-10
-        double awardsComponent = Math.min(awards * 0.5, 2); // max +2 for awards
-        return Math.min(imdbComponent + awardsComponent, 10);
+    private double calculateVisualEffects(FilmData data) {
+        // check for VFX/Cinematography awards
+        boolean hasVFXAward = data.awards.stream()
+                .anyMatch(a -> a.contains("Visual Effects") ||
+                        a.contains("Cinematography") ||
+                        a.contains("Editing"));
+
+        if (hasVFXAward) {
+            // 95% from award and 5% from budget
+            return 9.5 + (calculateVFXFromBudget(data) * 0.05);
+        } else {
+            return calculateVFXFromBudget(data);
+        }
     }
 
-    // inner classes for data structures
+    private double calculateVFXFromBudget(FilmData data) {
+        // VFX heavy genres
+        boolean isVFXGenre = data.genres != null &&
+                (data.genres.contains("SciFi") ||
+                        data.genres.contains("Fantasy") ||
+                        data.genres.contains("Action") ||
+                        data.genres.contains("Animation")
+                );
+
+        if (isVFXGenre) {
+            if (data.budget > 150_000_000) return 9.0;
+            if (data.budget > 100_000_000) return 8.0;
+            if (data.budget > 50_000_000) return 7.0;
+            if (data.budget < 50_000_000) return 6.0;
+            // ako je ROI nizak i nema vfx awards onda se ocena smanjuje
+            double roi = data.budget > 0 ? data.boxOffice / data.budget : 0;
+
+            if (roi < 1.0 && data.imdbRating < 3.5) {  // bomb i losa ocena
+                return 2.0;
+            }
+
+            if (data.genres.contains("Animation")) {
+                if (data.imdbRating > 8.0) return 9.0;
+                if (data.imdbRating > 7.0) return 8.0;
+                return 7.0;
+            }
+
+        }
+
+        // for other genres
+        return 5.0;
+    }
+
+    private double calculateCulturalImpact(FilmData data) {
+        int age = 2025 - data.releaseYear;
+        double impact = data.imdbRating;
+
+        // recent masterpiece
+        if (age < 10 && data.imdbRating > 8.5) {
+            impact += 1.0;
+        }
+
+        // classic masterpiece
+        if (age > 30 && data.imdbRating > 8.0) {
+            impact += 1.5;
+        }
+
+        // awards boost (any major award)
+        if (!data.awards.isEmpty()) {
+            impact += Math.min(data.awards.size() * 0.2, 1.5);
+        }
+
+        // box office success adds to cultural impact
+        if (data.budget > 0) {
+            double ratio = data.boxOffice / data.budget;
+            if (ratio > 5.0) {  // 5x return is a major cultural phenomenon
+                impact += 0.5;
+            }
+        }
+
+        return Math.min(impact, 10.0);
+    }
+
+
     private static class FilmData {
         double imdbRating;
         double boxOffice;
         double budget;
         int releaseYear;
-        int awardsCount;
+        String genres;
+        Set<String> awards;
 
-        FilmData(double imdb, double boxOffice, double budget, int year, int awards) {
+        FilmData(double imdb, double boxOffice, double budget, int year, String genres, Set<String> awards) {
             this.imdbRating = imdb;
             this.boxOffice = boxOffice;
             this.budget = budget;
             this.releaseYear = year;
-            this.awardsCount = awards;
+            this.genres = genres;
+            this.awards = awards;
         }
     }
 
@@ -176,37 +266,37 @@ public class FuzzyFilmQualitySystem {
         public double qualityScore;
         public String qualityRating;
 
-        // input values
-        public double overallRating;
-        public double boxOfficeSuccess;
-        public double awardsCount;
-        public double culturalAge;
-        public double criticalAcclaim;
+        // fuzzy inputs
+        public double directorQuality;
+        public double actingQuality;
+        public double storyQuality;
+        public double visualEffects;
+        public double culturalImpact;
 
         // original data
         public double imdbRating;
         public double boxOffice;
         public double budget;
         public int releaseYear;
-        public int awards;
+        public Set<String> awards;
 
         FilmQualityResult(String title, double quality, FilmData data,
-                          double overall, double boxOffice, double awards, double age, double acclaim) {
+                          double director, double acting, double story, double vfx, double culture) {
             this.filmTitle = title;
             this.qualityScore = quality;
             this.qualityRating = getRating(quality);
 
-            this.overallRating = overall;
-            this.boxOfficeSuccess = boxOffice;
-            this.awardsCount = awards;
-            this.culturalAge = age;
-            this.criticalAcclaim = acclaim;
+            this.directorQuality = director;
+            this.actingQuality = acting;
+            this.storyQuality = story;
+            this.visualEffects = vfx;
+            this.culturalImpact = culture;
 
             this.imdbRating = data.imdbRating;
             this.boxOffice = data.boxOffice;
             this.budget = data.budget;
             this.releaseYear = data.releaseYear;
-            this.awards = data.awardsCount;
+            this.awards = data.awards;
         }
 
         private String getRating(double quality) {
@@ -217,26 +307,29 @@ public class FuzzyFilmQualitySystem {
 
         @Override
         public String toString() {
+            String awardsStr = awards.isEmpty() ? "None" : String.join(", ", awards);
+            double roi = budget > 0 ? (boxOffice / budget) : 0;
+
             return String.format(
-                            "Film: %s\n" +
-                            "Quality Score: %.2f/100\n" +
+                            "\nFILM QUALITY ASSESSMENT\n" +
+                            "Film: %s (%d)\n" +
                             "Rating: %s\n\n" +
-                            "Original Data:\n" +
+                            "--- Original Data ---\n" +
                             "  IMDb Rating: %.1f/10\n" +
                             "  Box Office: $%.0fM\n" +
                             "  Budget: $%.0fM\n" +
-                            "  Release Year: %d\n" +
-                            "  Awards Won: %d\n\n" +
-                            "Fuzzy Inputs:\n" +
-                            "  Overall Rating: %.1f/10\n" +
-                            "  Box Office Success: %.1f/10\n" +
-                            "  Awards Count: %.0f/10\n" +
-                            "  Cultural Age: %.0f years\n" +
-                            "  Critical Acclaim: %.1f/10\n",
-                    filmTitle, qualityScore, qualityRating,
-                    imdbRating, boxOffice / 1_000_000, budget / 1_000_000,
-                    releaseYear, awards,
-                    overallRating, boxOfficeSuccess, awardsCount, culturalAge, criticalAcclaim
+                            "  ROI: %.1fx\n" +
+                            "  Awards: %s\n\n" +
+                            "--- Quality Criteria (Fuzzy Inputs) ---\n" +
+                            "  Director Quality: %.1f/10\n" +
+                            "  Acting Quality: %.1f/10\n" +
+                            "  Story Quality: %.1f/10\n" +
+                            "  Visual Effects: %.1f/10\n" +
+                            "  Cultural Impact: %.1f/10\n",
+                    filmTitle, releaseYear, qualityRating,
+                    imdbRating, boxOffice / 1_000_000, budget / 1_000_000, roi,
+                    awardsStr,
+                    directorQuality, actingQuality, storyQuality, visualEffects, culturalImpact
             );
         }
     }

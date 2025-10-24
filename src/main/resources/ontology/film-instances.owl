@@ -93,6 +93,14 @@
 :BradBird a :Director ; :personName "BradBird" .
 :JohnLasseter a :Director ; :personName "JohnLasseter" .
 :GlennFicarraJohnRequa a :Person ; :personName "GlennFicarraJohnRequa" .
+:TommyWiseau a :Director ; :personName "TommyWiseau" .
+:TomHooper a :Director ; :personName "TomHooper" .
+:RogerChristian a :Director ; :personName "RogerChristian" .
+:MartinBrest a :Director ; :personName "MartinBrest" .
+:DennisDugan a :Director ; :personName "DennisDugan" .
+:MartinCampbell a :Director ; :personName "MartinCampbell" .
+:JonFavreau a :Director ; :personName "JonFavreau" .
+:NeilMarshall a :Director ; :personName "NeilMarshall" .
 
 # ==========================
 # ACTORS
@@ -112,7 +120,7 @@
 :KeanuReeves a :Actor ; :personName "KeanuReeves" .
 :RussellCrowe a :Actor ; :personName "RussellCrowe" .
 :JoaquinPhoenix a :Actor ; :personName "JoaquinPhoenix" .
-:MilesJeller a :Actor ; :personName "MilesJeller" .
+:MilesTeller a :Actor ; :personName "MilesTeller" .
 :JKSimmons a :Actor ; :personName "JKSimmons" .
 :SongKangHo a :Actor ; :personName "SongKangHo" .
 :AdrienBrody a :Actor ; :personName "AdrienBrody" .
@@ -133,6 +141,51 @@
 :LiamNeeson a :Person ; :personName "LiamNeeson" .
 :TomHardy a :Person ; :personName "TomHardy" .
 :MichaelCaine a :Person ; :personName "MichaelCaine" .
+:AlexandreRodrigues a :Actor ; :personName "AlexandreRodrigues" .
+:LeandroFirmino a :Actor ; :personName "LeandroFirmino" .
+:MiyuIrino a :Actor ; :personName "MiyuIrino" .
+:RumiHiiragi a :Actor ; :personName "RumiHiiragi" .
+:ToshiroMifune a :Actor ; :personName "ToshiroMifune" .
+:TakashiShimura a :Actor ; :personName "TakashiShimura" .
+:IvanaBaquero a :Actor ; :personName "IvanaBaquero" .
+:SergiLopez a :Actor ; :personName "SergiLopez" .
+:ChoiMinSik a :Actor ; :personName "ChoiMinSik" .
+:YooJiTae a :Actor ; :personName "YooJiTae" .
+:UlrichMuhe a :Actor ; :personName "UlrichMuhe" .
+:MartinaGedeck a :Actor ; :personName "MartinaGedeck" .
+:NoemieMerlant a :Actor ; :personName "NoemieMerlant" .
+:AdeleHaenel a :Actor ; :personName "AdeleHaenel" .
+:FrancoisCluzet a :Actor ; :personName "FrancoisCluzet" .
+:OmarSy a :Actor ; :personName "OmarSy" .
+:YalitzaAparicio a :Actor ; :personName "YalitzaAparicio" .
+:MarinaDeTavira a :Actor ; :personName "MarinaDeTavira" .
+:MikiManojlovic a :Actor ; :personName "MikiManojlovic" .
+:LazarRistovski a :Actor ; :personName "LazarRistovski" .
+:FMurrayAbraham a :Actor ; :personName "FMurrayAbraham" .
+:TomHulce a :Actor ; :personName "TomHulce" .
+:AudreyTautou a :Actor ; :personName "AudreyTautou" .
+:MathieuKassovitz a :Actor ; :personName "MathieuKassovitz" .
+:MarcelloMastroianni a :Actor ; :personName "MarcelloMastroianni" .
+:AnitaEkberg a :Actor ; :personName "AnitaEkberg" .
+:SrdjanTodorovic a :Actor ; :personName "SrdjanTodorovic" .
+:BajramSeverdzan a :Actor ; :personName "BajramSeverdzan" .
+:RyunosukeKamiki a :Actor ; :personName "RyunosukeKamiki" .
+:MoneKamishiraishi a :Actor ; :personName "MoneKamishiraishi" .
+:PattonOswalt a :Actor ; :personName "PattonOswalt" .
+:IanHolm a :Actor ; :personName "IanHolm" .
+:TommyWiseau a :Actor ; :personName "TommyWiseau" .
+:GregSestero a :Actor ; :personName "GregSestero" .
+:JudiDench a :Actor ; :personName "JudiDench" .
+:JamesCorden a :Actor ; :personName "JamesCorden" .
+:BarryPepper a :Actor ; :personName "BarryPepper" .
+:BenAffleck a :Actor ; :personName "BenAffleck" .
+:JenniferLopez a :Actor ; :personName "JenniferLopez" .
+:AdamSandler a :Actor ; :personName "AdamSandler" .
+:RyanReynolds a :Actor ; :personName "RyanReynolds" .
+:BlakeLively a :Actor ; :personName "BlakeLively" .
+:DanielCraig a :Actor ; :personName "DanielCraig" .
+:DavidHarbour a :Actor ; :personName "DavidHarbour" .
+:MillaJovovich a :Actor ; :personName "MillaJovovich" .
 
 # ==========================
 # FILMS
@@ -327,7 +380,7 @@
     :runtimeMinutes 106 ;
     :directedBy :DamienChazelle ;
     :hasGenre :Drama, :Music ;
-    :hasActor :MilesJeller, :JKSimmons ;
+    :hasActor :MilesTeller, :JKSimmons ;
     :spokenInLanguage :English ;
     :wonAward :OscarBestActor .
 
@@ -355,6 +408,7 @@
     :runtimeMinutes 130 ;
     :directedBy :FernandoMeirelles ;
     :hasGenre :Crime, :Drama ;
+    :hasActor :AlexandreRodrigues, :LeandroFirmino ;
     :spokenInLanguage :English .
 
 # 17. Spirited Away (2001)
@@ -367,6 +421,7 @@
     :runtimeMinutes 125 ;
     :directedBy :HayaoMiyazaki ;
     :hasGenre :Animation, :Adventure, :Fantasy ;
+    :hasActor :MiyuIrino, :RumiHiiragi ;
     :spokenInLanguage :Japanese ;
     :wonAward :OscarBestInternationalFilm .
 
@@ -380,6 +435,7 @@
     :runtimeMinutes 207 ;
     :directedBy :AkiraKurosawa ;
     :hasGenre :Action, :Drama ;
+    :hasActor :ToshiroMifune, :TakashiShimura ;
     :spokenInLanguage :Japanese ;
     :wonAward :GoldenLion .
 
@@ -434,6 +490,7 @@
     :runtimeMinutes 118 ;
     :directedBy :GuillermoDelToro ;
     :hasGenre :Drama, :Fantasy, :War ;
+    :hasActor :IvanaBaquero, :SergiLopez ;
     :spokenInLanguage :Spanish ;
     :wonAward :OscarBestCinematography .
 
@@ -447,6 +504,7 @@
     :runtimeMinutes 120 ;
     :directedBy :ParkChanWook ;
     :hasGenre :Drama, :Thriller ;
+    :hasActor :ChoiMinSik, :YooJiTae ;
     :spokenInLanguage :Korean .
 
 # 24. The Lives of Others (2006)
@@ -459,6 +517,7 @@
     :runtimeMinutes 137 ;
     :directedBy :FlorianHenckelvonDonnersmarck ;
     :hasGenre :Drama, :Thriller ;
+    :hasActor :UlrichMuhe, :MartinaGedeck ;
     :spokenInLanguage :German ;
     :wonAward :OscarBestInternationalFilm .
 
@@ -472,6 +531,7 @@
     :runtimeMinutes 122 ;
     :directedBy :CelineSciamma ;
     :hasGenre :Drama, :Romance ;
+    :hasActor :NoemieMerlant, :AdeleHaenel ;
     :spokenInLanguage :French .
 
 # 26. The Intouchables (2011)
@@ -484,6 +544,7 @@
     :runtimeMinutes 112 ;
     :directedBy :OlivierNakache ;
     :hasGenre :Comedy, :Drama ;
+    :hasActor :FrancoisCluzet, :OmarSy ;
     :spokenInLanguage :French .
 
 # 27. Roma (2018)
@@ -496,6 +557,7 @@
     :runtimeMinutes 135 ;
     :directedBy :AlfonsoCuaron ;
     :hasGenre :Drama ;
+    :hasActor :YalitzaAparicio, :MarinaDeTavira ;
     :spokenInLanguage :Spanish ;
     :wonAward :OscarBestDirector, :OscarBestCinematography, :OscarBestInternationalFilm .
 
@@ -509,6 +571,7 @@
     :runtimeMinutes 170 ;
     :directedBy :EmirKusturica ;
     :hasGenre :Comedy, :Drama, :War ;
+    :hasActor :MikiManojlovic, :LazarRistovski ;
     :spokenInLanguage :Serbian ;
     :wonAward :PalmeOr .
 
@@ -522,6 +585,7 @@
     :runtimeMinutes 160 ;
     :directedBy :MilosForman ;
     :hasGenre :Biography, :Drama, :Music ;
+    :hasActor :FMurrayAbraham, :TomHulce ;
     :spokenInLanguage :English ;
     :wonAward :OscarBestPicture, :OscarBestDirector, :OscarBestActor .
 
@@ -549,6 +613,7 @@
     :runtimeMinutes 122 ;
     :directedBy :JeanPierreJeunet ;
     :hasGenre :Comedy, :Romance ;
+    :hasActor :AudreyTautou, :MathieuKassovitz ;
     :spokenInLanguage :French .
 
 # 32. La Dolce Vita (1960)
@@ -561,6 +626,7 @@
     :runtimeMinutes 174 ;
     :directedBy :FedericoFellini ;
     :hasGenre :Drama ;
+    :hasActor :MarcelloMastroianni, :AnitaEkberg ;
     :spokenInLanguage :Italian ;
     :wonAward :PalmeOr .
 
@@ -574,6 +640,7 @@
     :runtimeMinutes 127 ;
     :directedBy :EmirKusturica ;
     :hasGenre :Comedy, :Crime ;
+    :hasActor :SrdjanTodorovic, :BajramSeverdzan ;
     :spokenInLanguage :Serbian, :Italian .
 
 # 34. Your Name (2016)
@@ -586,6 +653,7 @@
     :runtimeMinutes 106 ;
     :directedBy :MakotoShinkai ;
     :hasGenre :Animation, :Drama, :Romance ;
+    :hasActor :RyunosukeKamiki, :MoneKamishiraishi ;
     :spokenInLanguage :Japanese .
 
 # 35. Ratatouille (2007)
@@ -598,6 +666,7 @@
     :runtimeMinutes 111 ;
     :directedBy :BradBird ;
     :hasGenre :Animation, :Comedy, :Family ;
+    :hasActor :PattonOswalt, :IanHolm ;
     :spokenInLanguage :English ;
     :wonAward :OscarBestInternationalFilm .
 
@@ -664,7 +733,9 @@
     :boxOfficeUSD "1900000"^^xsd:decimal ;
     :budgetUSD "6000000"^^xsd:decimal ;
     :runtimeMinutes 99 ;
+    :directedBy :TommyWiseau ;
     :hasGenre :Drama, :Romance ;
+    :hasActor :TommyWiseau, :GregSestero ;
     :spokenInLanguage :English .
 
 # 41. Cats (2019)
@@ -675,7 +746,9 @@
     :boxOfficeUSD "75500000"^^xsd:decimal ;
     :budgetUSD "100000000"^^xsd:decimal ;
     :runtimeMinutes 110 ;
+    :directedBy :TomHooper ;
     :hasGenre :Comedy, :Drama, :Fantasy ;
+    :hasActor :JudiDench, :JamesCorden ;
     :spokenInLanguage :English .
 
 # 42. Battlefield Earth (2000)
@@ -686,7 +759,9 @@
     :boxOfficeUSD "29700000"^^xsd:decimal ;
     :budgetUSD "73000000"^^xsd:decimal ;
     :runtimeMinutes 118 ;
+    :directedBy :RogerChristian ;
     :hasGenre :Action, :SciFi ;
+    :hasActor :JohnTravolta, :BarryPepper ;
     :spokenInLanguage :English .
 
 # 43. Gigli (2003)
@@ -697,7 +772,9 @@
     :boxOfficeUSD "7300000"^^xsd:decimal ;
     :budgetUSD "75000000"^^xsd:decimal ;
     :runtimeMinutes 121 ;
+    :directedBy :MartinBrest ;
     :hasGenre :Comedy, :Crime, :Romance ;
+    :hasActor :BenAffleck, :JenniferLopez ;
     :spokenInLanguage :English .
 
 # 44. Jack and Jill (2011)
@@ -708,7 +785,9 @@
     :boxOfficeUSD "149700000"^^xsd:decimal ;
     :budgetUSD "79000000"^^xsd:decimal ;
     :runtimeMinutes 91 ;
+    :directedBy :DennisDugan ;
     :hasGenre :Comedy, :Family ;
+    :hasActor :AdamSandler, :AlPacino ;
     :spokenInLanguage :English .
 
 # 45. La La Land (2016)
@@ -762,4 +841,43 @@
     :directedBy :ChristopherNolan ;
     :hasGenre :Action, :Crime, :Drama ;
     :hasActor :ChristianBale, :MichaelCaine, :TomHardy, :AnneHathaway ;
+    :spokenInLanguage :English .
+
+# 49. Green Lantern (2011)
+:GreenLantern a :Film ;
+    :title "Green Lantern" ;
+    :releaseYear "2011"^^xsd:gYear ;
+    :imdbRating "5.5"^^xsd:decimal ;
+    :boxOfficeUSD "220000000"^^xsd:decimal ;
+    :budgetUSD "200000000"^^xsd:decimal ;
+    :runtimeMinutes 114 ;
+    :directedBy :MartinCampbell ;
+    :hasGenre :Action, :Adventure, :SciFi ;
+    :hasActor :RyanReynolds, :BlakeLively ;
+    :spokenInLanguage :English .
+
+# 50. Cowboys & Aliens (2011)
+:CowboysAndAliens a :Film ;
+    :title "Cowboys & Aliens" ;
+    :releaseYear "2011"^^xsd:gYear ;
+    :imdbRating "6.0"^^xsd:decimal ;
+    :boxOfficeUSD "174800000"^^xsd:decimal ;
+    :budgetUSD "163000000"^^xsd:decimal ;
+    :runtimeMinutes 119 ;
+    :directedBy :JonFavreau ;
+    :hasGenre :Action, :SciFi ;
+    :hasActor :DanielCraig, :HarrisonFord ;
+    :spokenInLanguage :English .
+
+# 51. Hellboy (2019)
+:Hellboy2019 a :Film ;
+    :title "Hellboy" ;
+    :releaseYear "2019"^^xsd:gYear ;
+    :imdbRating "5.2"^^xsd:decimal ;
+    :boxOfficeUSD "55100000"^^xsd:decimal ;
+    :budgetUSD "50000000"^^xsd:decimal ;
+    :runtimeMinutes 121 ;
+    :directedBy :NeilMarshall ;
+    :hasGenre :Action, :Fantasy, :Horror ;
+    :hasActor :DavidHarbour, :MillaJovovich ;
     :spokenInLanguage :English .

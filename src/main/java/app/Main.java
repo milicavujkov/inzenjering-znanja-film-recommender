@@ -156,6 +156,7 @@ public class Main {
                 printFormattedResults(rs, mode.equals("2"));
             }
         }
+        System.out.flush();
     }
 
     private static void performQualityAssessment(Scanner in) {
@@ -183,6 +184,7 @@ public class Main {
             System.err.println("Error during quality assessment: " + e.getMessage());
             e.printStackTrace();
         }
+        System.out.flush();
     }
 
     private static void performCBRRecommendation(Scanner in) {
@@ -240,20 +242,26 @@ public class Main {
 
             System.out.println("\nSimilar Films to \"" + filmTitle + "\"\n");
 
-            System.out.printf("%-5s %-40s %-8s %-8s %-30s %-30s%n",
-                    "Rank", "Title", "Year", "IMDb", "Director", "Genres");
-            System.out.println("=".repeat(130));
+            System.out.printf("%-5s %-35s %-6s %-6s %-25s %-25s %-40s %-15s%n",
+                    "Rank", "Title", "Year", "IMDb", "Director", "Genres", "Actors", "Languages");
+
+            System.out.println("=".repeat(170));
 
             int rank = 1;
             for (CaseBasedReasoning.SimilarFilm film : similarFilms) {
                 String genres = String.join(", ", film.getGenres());
-                System.out.printf("%-5d %-40s %-8d %-8.1f %-30s %-30s%n",
+                String actors = String.join(", ", film.getActors());
+                String languages = String.join(", ", film.getLanguages());
+
+                System.out.printf("%-5d %-35s %-6d %-6.1f %-25s %-25s %-40s %-15s%n",
                         rank++,
-                        truncate(film.getTitle(), 40),
+                        truncate(film.getTitle(), 35),
                         film.getYear(),
                         film.getImdbRating(),
-                        truncate(film.getDirector(), 30),
-                        truncate(genres, 30));
+                        truncate(film.getDirector(), 25),
+                        truncate(genres, 25),
+                        truncate(actors, 40),
+                        truncate(languages, 15));
 
                 System.out.printf("      Similarity Score: %.0f points%n%n", film.getScore());
             }
@@ -262,6 +270,7 @@ public class Main {
             System.err.println("Error during CBR recommendation: " + e.getMessage());
             e.printStackTrace();
         }
+        System.out.flush();
     }
 
     private static int getTotalFilmCount() {
