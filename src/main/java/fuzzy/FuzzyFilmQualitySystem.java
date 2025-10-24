@@ -189,27 +189,49 @@ public class FuzzyFilmQualitySystem {
                 );
 
         if (isVFXGenre) {
-            if (data.budget > 150_000_000) return 9.0;
-            if (data.budget > 100_000_000) return 8.0;
-            if (data.budget > 50_000_000) return 7.0;
-            if (data.budget < 50_000_000) return 6.0;
-            // ako je ROI nizak i nema vfx awards onda se ocena smanjuje
-            double roi = data.budget > 0 ? data.boxOffice / data.budget : 0;
-
-            if (roi < 1.0 && data.imdbRating < 3.5) {  // bomb i losa ocena
-                return 2.0;
-            }
-
             if (data.genres.contains("Animation")) {
                 if (data.imdbRating > 8.0) return 9.0;
                 if (data.imdbRating > 7.0) return 8.0;
                 return 7.0;
             }
-
+            if (data.budget > 150_000_000) {
+                if (factorInROI(data)) {
+                    return 2.0;
+                }
+                return 9.0;
+            }
+            if (data.budget > 100_000_000) {
+                if (factorInROI(data)) {
+                    return 2.0;
+                }
+                return 8.0;
+            }
+            if (data.budget > 50_000_000) {
+                if (factorInROI(data)) {
+                    return 2.0;
+                }
+                return 7.0;
+            }
+            if (data.budget < 50_000_000) {
+                if (factorInROI(data)) {
+                    return 2.0;
+                }
+                return 6.0;
+            }
         }
 
         // for other genres
         return 5.0;
+    }
+
+    private boolean factorInROI(FilmData data) {
+        // ako je ROI nizak i nema vfx awards onda se ocena smanjuje
+        double roi = data.budget > 0 ? data.boxOffice / data.budget : 0;
+
+        if (roi < 1.0 && data.imdbRating < 3.5) {  // bomb i losa ocena
+            return true;
+        }
+        return false;
     }
 
     private double calculateCulturalImpact(FilmData data) {
