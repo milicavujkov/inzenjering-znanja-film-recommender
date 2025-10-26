@@ -22,6 +22,7 @@ public class FuzzyFilmQualitySystem {
         }
 
         fb = fis.getFunctionBlock("filmQuality");
+        System.out.println("Loaded function block: " + fb.getName());
     }
 
     public FilmQualityResult evaluateFilm(String filmTitle, Model model) {
@@ -322,10 +323,13 @@ public class FuzzyFilmQualitySystem {
         }
 
         private String getRating(double quality) {
+            if (quality < 20) return "VERY POOR";
             if (quality < 40) return "POOR";
-            if (quality < 70) return "GOOD";
+            if (quality < 60) return "FAIR";
+            if (quality < 80) return "GOOD";
             return "EXCELLENT";
         }
+
 
         @Override
         public String toString() {
@@ -335,6 +339,7 @@ public class FuzzyFilmQualitySystem {
             return String.format(
                             "\nFILM QUALITY ASSESSMENT\n" +
                             "Film: %s (%d)\n" +
+                            "Quality Score: %.0f/100\n" +
                             "Rating: %s\n\n" +
                             "--- Original Data ---\n" +
                             "  IMDb Rating: %.1f/10\n" +
@@ -348,7 +353,7 @@ public class FuzzyFilmQualitySystem {
                             "  Story Quality: %.1f/10\n" +
                             "  Visual Effects: %.1f/10\n" +
                             "  Cultural Impact: %.1f/10\n",
-                    filmTitle, releaseYear, qualityRating,
+                    filmTitle, releaseYear, qualityScore, qualityRating,
                     imdbRating, boxOffice / 1_000_000, budget / 1_000_000, roi,
                     awardsStr,
                     directorQuality, actingQuality, storyQuality, visualEffects, culturalImpact

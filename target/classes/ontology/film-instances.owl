@@ -4,9 +4,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-# ==========================
 # GENRES
-# ==========================
 :Action a :Genre ; :genreName "Action" .
 :Adventure a :Genre ; :genreName "Adventure" .
 :Animation a :Genre ; :genreName "Animation" .
@@ -24,9 +22,7 @@
 :War a :Genre ; :genreName "War" .
 :Music a :Genre ; :genreName "Music" .
 
-# ==========================
 # LANGUAGES
-# ==========================
 :English a :Language ; :languageName "English" .
 :Japanese a :Language ; :languageName "Japanese" .
 :French a :Language ; :languageName "French" .
@@ -37,9 +33,7 @@
 :German a :Language ; :languageName "German" .
 :Polish a :Language ; :languageName "Polish" .
 
-# ==========================
 # AWARDS
-# ==========================
 :OscarBestPicture a :Award ; :awardName "Oscar Best Picture" .
 :OscarBestDirector a :Award ; :awardName "Oscar Best Director" .
 :OscarBestActor a :Award ; :awardName "Oscar Best Actor" .
@@ -54,142 +48,136 @@
 :PalmeOr a :Award ; :awardName "Palme d'Or" .
 :GoldenLion a :Award ; :awardName "Golden Lion" .
 
-# ==========================
 # DIRECTORS
-# ==========================
-:ChristopherNolan a :Director ; :personName "ChristopherNolan" .
-:QuentinTarantino a :Director ; :personName "QuentinTarantino" .
-:MartinScorsese a :Director ; :personName "MartinScorsese" .
-:FrancisFordCoppola a :Director ; :personName "FrancisFordCoppola" .
-:StevenSpielberg a :Director ; :personName "StevenSpielberg" .
-:DavidFincher a :Director ; :personName "DavidFincher" .
-:RidleyScott a :Director ; :personName "RidleyScott" .
-:PeterJackson a :Director ; :personName "PeterJackson" .
-:StanleyKubrick a :Director ; :personName "StanleyKubrick" .
-:AlfredHitchcock a :Director ; :personName "AlfredHitchcock" .
-:BongJoonHo a :Director ; :personName "BongJoonHo" .
-:AkiraKurosawa a :Director ; :personName "AkiraKurosawa" .
-:HayaoMiyazaki a :Director ; :personName "HayaoMiyazaki" .
-:FrankDarabont a :Director ; :personName "FrankDarabont" .
-:TheWachowskis a :Director ; :personName "TheWachowskis" .
-:JamesCameron a :Director ; :personName "JamesCameron" .
-:GuillermoDelToro a :Director ; :personName "GuillermoDelToro" .
-:AlfonsoCuaron a :Director ; :personName "AlfonsoCuaron" .
-:RomanPolanski a :Director ; :personName "RomanPolanski" .
-:RobertoBenigni a :Director ; :personName "RobertoBenigni" .
-:FernandoMeirelles a :Director ; :personName "FernandoMeirelles" .
-:ToddPhillips a :Director ; :personName "ToddPhillips" .
-:DamienChazelle a :Director ; :personName "DamienChazelle" .
-:ParkChanWook a :Director ; :personName "ParkChanWook" .
-:CelineSciamma a :Director ; :personName "CelineSciamma" .
-:OlivierNakache a :Director ; :personName "OlivierNakache" .
-:FlorianHenckelvonDonnersmarck a :Director ; :personName "FlorianHenckelvonDonnersmarck" .
-:EmirKusturica a :Director ; :personName "EmirKusturica" .
-:MilosForman a :Director ; :personName "MilosForman" .
-:JeanPierreJeunet a :Director ; :personName "JeanPierreJeunet" .
-:FedericoFellini a :Director ; :personName "FedericoFellini" .
-:MichaelCurtiz a :Director ; :personName "MichaelCurtiz" .
-:MakotoShinkai a :Director ; :personName "MakotoShinkai" .
-:BradBird a :Director ; :personName "BradBird" .
-:JohnLasseter a :Director ; :personName "JohnLasseter" .
-:GlennFicarraJohnRequa a :Person ; :personName "GlennFicarraJohnRequa" .
-:TommyWiseau a :Director ; :personName "TommyWiseau" .
-:TomHooper a :Director ; :personName "TomHooper" .
-:RogerChristian a :Director ; :personName "RogerChristian" .
-:MartinBrest a :Director ; :personName "MartinBrest" .
-:DennisDugan a :Director ; :personName "DennisDugan" .
-:MartinCampbell a :Director ; :personName "MartinCampbell" .
-:JonFavreau a :Director ; :personName "JonFavreau" .
-:NeilMarshall a :Director ; :personName "NeilMarshall" .
+:ChristopherNolan a :Director ; :personName "Christopher Nolan" .
+:QuentinTarantino a :Director ; :personName "Quentin Tarantino" .
+:MartinScorsese a :Director ; :personName "Martin Scorsese" .
+:FrancisFordCoppola a :Director ; :personName "Francis Ford Coppola" .
+:StevenSpielberg a :Director ; :personName "Steven Spielberg" .
+:DavidFincher a :Director ; :personName "David Fincher" .
+:RidleyScott a :Director ; :personName "Ridley Scott" .
+:PeterJackson a :Director ; :personName "Peter Jackson" .
+:StanleyKubrick a :Director ; :personName "Stanley Kubrick" .
+:AlfredHitchcock a :Director ; :personName "Alfred Hitchcock" .
+:BongJoonHo a :Director ; :personName "Bong JoonHo" .
+:AkiraKurosawa a :Director ; :personName "Akira Kurosawa" .
+:HayaoMiyazaki a :Director ; :personName "Hayao Miyazaki" .
+:FrankDarabont a :Director ; :personName "Frank Darabont" .
+:TheWachowskis a :Director ; :personName "The Wachowskis" .
+:JamesCameron a :Director ; :personName "James Cameron" .
+:GuillermoDelToro a :Director ; :personName "Guillermo Del Toro" .
+:AlfonsoCuaron a :Director ; :personName "Alfonso Cuaron" .
+:RomanPolanski a :Director ; :personName "Roman Polanski" .
+:RobertoBenigni a :Director ; :personName "Roberto Benigni" .
+:FernandoMeirelles a :Director ; :personName "Fernando Meirelles" .
+:ToddPhillips a :Director ; :personName "Todd Phillips" .
+:DamienChazelle a :Director ; :personName "Damien Chazelle" .
+:ParkChanWook a :Director ; :personName "Park Chan Wook" .
+:CelineSciamma a :Director ; :personName "Celine Sciamma" .
+:OlivierNakache a :Director ; :personName "Olivier Nakache" .
+:FlorianHenckelvonDonnersmarck a :Director ; :personName "Florian Henckel von Donnersmarck" .
+:EmirKusturica a :Director ; :personName "Emir Kusturica" .
+:MilosForman a :Director ; :personName "Milos Forman" .
+:JeanPierreJeunet a :Director ; :personName "Jean Pierre Jeunet" .
+:FedericoFellini a :Director ; :personName "Federico Fellini" .
+:MichaelCurtiz a :Director ; :personName "Michael Curtiz" .
+:MakotoShinkai a :Director ; :personName "Makoto Shinkai" .
+:BradBird a :Director ; :personName "Brad Bird" .
+:JohnLasseter a :Director ; :personName "John Lasseter" .
+:GlennFicarraJohnRequa a :Person ; :personName "Glenn Ficarra John Requa" .
+:TommyWiseau a :Director ; :personName "Tommy Wiseau" .
+:TomHooper a :Director ; :personName "Tom Hooper" .
+:RogerChristian a :Director ; :personName "Roger Christian" .
+:MartinBrest a :Director ; :personName "Martin Brest" .
+:DennisDugan a :Director ; :personName "Dennis Dugan" .
+:MartinCampbell a :Director ; :personName "Martin Campbell" .
+:JonFavreau a :Director ; :personName "Jon Favreau" .
+:NeilMarshall a :Director ; :personName "Neil Marshall" .
 
-# ==========================
 # ACTORS
-# ==========================
-:LeonardoDiCaprio a :Actor ; :personName "LeonardoDiCaprio" .
-:MarionCotillard a :Actor ; :personName "MarionCotillard" .
-:ChristianBale a :Actor ; :personName "ChristianBale" .
-:HeathLedger a :Actor ; :personName "HeathLedger" .
-:MarlonBrando a :Actor ; :personName "MarlonBrando" .
-:AlPacino a :Actor ; :personName "AlPacino" .
-:RobertDeNiro a :Actor ; :personName "RobertDeNiro" .
-:JoePesci a :Actor ; :personName "JoePesci" .
-:MorganFreeman a :Actor ; :personName "MorganFreeman" .
-:TimRobbins a :Actor ; :personName "TimRobbins" .
-:BradPitt a :Actor ; :personName "BradPitt" .
-:EdwardNorton a :Actor ; :personName "EdwardNorton" .
-:KeanuReeves a :Actor ; :personName "KeanuReeves" .
-:RussellCrowe a :Actor ; :personName "RussellCrowe" .
-:JoaquinPhoenix a :Actor ; :personName "JoaquinPhoenix" .
-:MilesTeller a :Actor ; :personName "MilesTeller" .
-:JKSimmons a :Actor ; :personName "JKSimmons" .
-:SongKangHo a :Actor ; :personName "SongKangHo" .
-:AdrienBrody a :Actor ; :personName "AdrienBrody" .
-:TomHanks a :Actor ; :personName "TomHanks" .
-:SigourneyWeaver a :Actor ; :personName "SigourneyWeaver" .
-:HarrisonFord a :Actor ; :personName "HarrisonFord" .
-:UmaThurman a :Actor ; :personName "UmaThurman" .
-:JohnTravolta a :Actor ; :personName "JohnTravolta" .
-:HumphreyBogart a :Actor ; :personName "HumphreyBogart" .
-:IngridBergman a :Actor ; :personName "IngridBergman" .
-:KateWinslet a :Actor ; :personName "KateWinslet" .
-:MatthewMcConaughey a :Actor ; :personName "MatthewMcConaughey" .
-:AnneHathaway a :Actor ; :personName "AnneHathaway" .
-:HughJackman a :Actor ; :personName "HughJackman" .
-:RyanGosling a :Person ; :personName "RyanGosling" .
-:EmmaStone a :Person ; :personName "EmmaStone" .
-:SteveCarell a :Person ; :personName "SteveCarell" .
-:LiamNeeson a :Person ; :personName "LiamNeeson" .
-:TomHardy a :Person ; :personName "TomHardy" .
-:MichaelCaine a :Person ; :personName "MichaelCaine" .
-:AlexandreRodrigues a :Actor ; :personName "AlexandreRodrigues" .
-:LeandroFirmino a :Actor ; :personName "LeandroFirmino" .
-:MiyuIrino a :Actor ; :personName "MiyuIrino" .
-:RumiHiiragi a :Actor ; :personName "RumiHiiragi" .
-:ToshiroMifune a :Actor ; :personName "ToshiroMifune" .
-:TakashiShimura a :Actor ; :personName "TakashiShimura" .
-:IvanaBaquero a :Actor ; :personName "IvanaBaquero" .
-:SergiLopez a :Actor ; :personName "SergiLopez" .
-:ChoiMinSik a :Actor ; :personName "ChoiMinSik" .
-:YooJiTae a :Actor ; :personName "YooJiTae" .
-:UlrichMuhe a :Actor ; :personName "UlrichMuhe" .
-:MartinaGedeck a :Actor ; :personName "MartinaGedeck" .
-:NoemieMerlant a :Actor ; :personName "NoemieMerlant" .
-:AdeleHaenel a :Actor ; :personName "AdeleHaenel" .
-:FrancoisCluzet a :Actor ; :personName "FrancoisCluzet" .
-:OmarSy a :Actor ; :personName "OmarSy" .
-:YalitzaAparicio a :Actor ; :personName "YalitzaAparicio" .
-:MarinaDeTavira a :Actor ; :personName "MarinaDeTavira" .
-:MikiManojlovic a :Actor ; :personName "MikiManojlovic" .
-:LazarRistovski a :Actor ; :personName "LazarRistovski" .
-:FMurrayAbraham a :Actor ; :personName "FMurrayAbraham" .
-:TomHulce a :Actor ; :personName "TomHulce" .
-:AudreyTautou a :Actor ; :personName "AudreyTautou" .
-:MathieuKassovitz a :Actor ; :personName "MathieuKassovitz" .
-:MarcelloMastroianni a :Actor ; :personName "MarcelloMastroianni" .
-:AnitaEkberg a :Actor ; :personName "AnitaEkberg" .
-:SrdjanTodorovic a :Actor ; :personName "SrdjanTodorovic" .
-:BajramSeverdzan a :Actor ; :personName "BajramSeverdzan" .
-:RyunosukeKamiki a :Actor ; :personName "RyunosukeKamiki" .
-:MoneKamishiraishi a :Actor ; :personName "MoneKamishiraishi" .
-:PattonOswalt a :Actor ; :personName "PattonOswalt" .
-:IanHolm a :Actor ; :personName "IanHolm" .
-:TommyWiseau a :Actor ; :personName "TommyWiseau" .
-:GregSestero a :Actor ; :personName "GregSestero" .
-:JudiDench a :Actor ; :personName "JudiDench" .
-:JamesCorden a :Actor ; :personName "JamesCorden" .
-:BarryPepper a :Actor ; :personName "BarryPepper" .
-:BenAffleck a :Actor ; :personName "BenAffleck" .
-:JenniferLopez a :Actor ; :personName "JenniferLopez" .
-:AdamSandler a :Actor ; :personName "AdamSandler" .
-:RyanReynolds a :Actor ; :personName "RyanReynolds" .
-:BlakeLively a :Actor ; :personName "BlakeLively" .
-:DanielCraig a :Actor ; :personName "DanielCraig" .
-:DavidHarbour a :Actor ; :personName "DavidHarbour" .
-:MillaJovovich a :Actor ; :personName "MillaJovovich" .
+:LeonardoDiCaprio a :Actor ; :personName "Leonardo DiCaprio" .
+:MarionCotillard a :Actor ; :personName "Marion Cotillard" .
+:ChristianBale a :Actor ; :personName "Christian Bale" .
+:HeathLedger a :Actor ; :personName "Heath Ledger" .
+:MarlonBrando a :Actor ; :personName "Marlon Brando" .
+:AlPacino a :Actor ; :personName "Al Pacino" .
+:RobertDeNiro a :Actor ; :personName "Robert DeNiro" .
+:JoePesci a :Actor ; :personName "Joe Pesci" .
+:MorganFreeman a :Actor ; :personName "Morgan Freeman" .
+:TimRobbins a :Actor ; :personName "Tim Robbins" .
+:BradPitt a :Actor ; :personName "Brad Pitt" .
+:EdwardNorton a :Actor ; :personName "Edward Norton" .
+:KeanuReeves a :Actor ; :personName "Keanu Reeves" .
+:RussellCrowe a :Actor ; :personName "Russell Crowe" .
+:JoaquinPhoenix a :Actor ; :personName "Joaquin Phoenix" .
+:MilesTeller a :Actor ; :personName "Miles Teller" .
+:JKSimmons a :Actor ; :personName "JK Simmons" .
+:SongKangHo a :Actor ; :personName "Song KangHo" .
+:AdrienBrody a :Actor ; :personName "Adrien Brody" .
+:TomHanks a :Actor ; :personName "Tom Hanks" .
+:SigourneyWeaver a :Actor ; :personName "Sigourney Weaver" .
+:HarrisonFord a :Actor ; :personName "Harrison Ford" .
+:UmaThurman a :Actor ; :personName "Uma Thurman" .
+:JohnTravolta a :Actor ; :personName "John Travolta" .
+:HumphreyBogart a :Actor ; :personName "Humphrey Bogart" .
+:IngridBergman a :Actor ; :personName "Ingrid Bergman" .
+:KateWinslet a :Actor ; :personName "Kate Winslet" .
+:MatthewMcConaughey a :Actor ; :personName "Matthew McConaughey" .
+:AnneHathaway a :Actor ; :personName "Anne Hathaway" .
+:HughJackman a :Actor ; :personName "Hugh Jackman" .
+:RyanGosling a :Person ; :personName "Ryan Gosling" .
+:EmmaStone a :Person ; :personName "Emma Stone" .
+:SteveCarell a :Person ; :personName "Steve Carell" .
+:LiamNeeson a :Person ; :personName "Liam Neeson" .
+:TomHardy a :Person ; :personName "Tom Hardy" .
+:MichaelCaine a :Person ; :personName "Michael Caine" .
+:AlexandreRodrigues a :Actor ; :personName "Alexandre Rodrigues" .
+:LeandroFirmino a :Actor ; :personName "Leandro Firmino" .
+:MiyuIrino a :Actor ; :personName "Miyu Irino" .
+:RumiHiiragi a :Actor ; :personName "Rumi Hiiragi" .
+:ToshiroMifune a :Actor ; :personName "Toshiro Mifune" .
+:TakashiShimura a :Actor ; :personName "Takashi Shimura" .
+:IvanaBaquero a :Actor ; :personName "Ivana Baquero" .
+:SergiLopez a :Actor ; :personName "Sergi Lopez" .
+:ChoiMinSik a :Actor ; :personName "Choi Min Sik" .
+:YooJiTae a :Actor ; :personName "Yoo JiTae" .
+:UlrichMuhe a :Actor ; :personName "Ulrich Muhe" .
+:MartinaGedeck a :Actor ; :personName "Martina Gedeck" .
+:NoemieMerlant a :Actor ; :personName "Noemie Merlant" .
+:AdeleHaenel a :Actor ; :personName "Adele Haenel" .
+:FrancoisCluzet a :Actor ; :personName "Francois Cluzet" .
+:OmarSy a :Actor ; :personName "Omar Sy" .
+:YalitzaAparicio a :Actor ; :personName "Yalitza Aparicio" .
+:MarinaDeTavira a :Actor ; :personName "Marina DeTavira" .
+:MikiManojlovic a :Actor ; :personName "Miki Manojlovic" .
+:LazarRistovski a :Actor ; :personName "Lazar Ristovski" .
+:FMurrayAbraham a :Actor ; :personName "FMurray Abraham" .
+:TomHulce a :Actor ; :personName "Tom Hulce" .
+:AudreyTautou a :Actor ; :personName "Audrey Tautou" .
+:MathieuKassovitz a :Actor ; :personName "Mathieu Kassovitz" .
+:MarcelloMastroianni a :Actor ; :personName "Marcello Mastroianni" .
+:AnitaEkberg a :Actor ; :personName "Anita Ekberg" .
+:SrdjanTodorovic a :Actor ; :personName "Srdjan Todorovic" .
+:BajramSeverdzan a :Actor ; :personName "Bajram Severdzan" .
+:RyunosukeKamiki a :Actor ; :personName "Ryunosuke Kamiki" .
+:MoneKamishiraishi a :Actor ; :personName "Mone Kamishiraishi" .
+:PattonOswalt a :Actor ; :personName "Patton Oswalt" .
+:IanHolm a :Actor ; :personName "Ian Holm" .
+:TommyWiseau a :Actor ; :personName "Tommy Wiseau" .
+:GregSestero a :Actor ; :personName "Greg Sestero" .
+:JudiDench a :Actor ; :personName "Judi Dench" .
+:JamesCorden a :Actor ; :personName "James Corden" .
+:BarryPepper a :Actor ; :personName "Barry Pepper" .
+:BenAffleck a :Actor ; :personName "Ben Affleck" .
+:JenniferLopez a :Actor ; :personName "Jennifer Lopez" .
+:AdamSandler a :Actor ; :personName "Adam Sandler" .
+:RyanReynolds a :Actor ; :personName "Ryan Reynolds" .
+:BlakeLively a :Actor ; :personName "Blake Lively" .
+:DanielCraig a :Actor ; :personName "Daniel Craig" .
+:DavidHarbour a :Actor ; :personName "David Harbour" .
+:MillaJovovich a :Actor ; :personName "Milla Jovovich" .
 
-# ==========================
 # FILMS
-# ==========================
 
 # 1. The Shawshank Redemption (1994)
 :TheShawshankRedemption a :Film ;
@@ -870,7 +858,7 @@
     :spokenInLanguage :English .
 
 # 51. Hellboy (2019)
-:Hellboy2019 a :Film ;
+:Hellboy a :Film ;
     :title "Hellboy" ;
     :releaseYear "2019"^^xsd:gYear ;
     :imdbRating "5.2"^^xsd:decimal ;

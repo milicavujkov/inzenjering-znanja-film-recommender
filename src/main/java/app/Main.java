@@ -46,14 +46,6 @@ public class Main {
                 }
             }
 
-            System.out.println();
-            System.out.print("Press ENTER to continue, or type 'Q' to quit: ");
-            String next = in.nextLine().trim();
-            if (next.equalsIgnoreCase("q")) {
-                System.out.println("\nExiting Film Recommender. Goodbye!\n");
-                break;
-            }
-            System.out.println();
         }
 
         in.close();

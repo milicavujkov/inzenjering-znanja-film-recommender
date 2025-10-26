@@ -13,39 +13,44 @@ VAR_OUTPUT
 END_VAR
 
 FUZZIFY directorQuality
-    TERM poor := (0, 1) (4, 1) (6, 0);
-    TERM good := (5, 0) (7, 1) (8, 0);
-    TERM excellent := (7.5, 0) (9, 1) (10, 1);
+    TERM poor := (0,1) (2,1) (4,0);
+    TERM fair := (3,0) (5.5,1) (7,0);
+    TERM good := (6,0) (7.5,1) (9,0);
+    TERM excellent := (8,0) (10,1);
 END_FUZZIFY
 
 FUZZIFY actingQuality
-    TERM poor := (0, 1) (4, 1) (6, 0);
-    TERM good := (5, 0) (7, 1) (8, 0);
-    TERM excellent := (7.5, 0) (9, 1) (10, 1);
+    TERM poor := (0,1) (2,1) (4,0);
+    TERM fair := (3,0) (5.5,1) (7,0);
+    TERM good := (6,0) (7.5,1) (9,0);
+    TERM excellent := (8,0) (10,1);
 END_FUZZIFY
 
 FUZZIFY storyQuality
-    TERM poor := (0, 1) (4, 1) (6, 0);
-    TERM good := (5, 0) (7, 1) (8, 0);
-    TERM excellent := (7.5, 0) (9, 1) (10, 1);
+    TERM poor := (0,1) (2,1) (4,0);
+    TERM fair := (3,0) (5.5,1) (7,0);
+    TERM good := (6,0) (7.5,1) (9,0);
+    TERM excellent := (8,0) (10,1);
 END_FUZZIFY
 
 FUZZIFY visualEffects
-    TERM poor := (0, 1) (4, 1) (6, 0);
-    TERM average := (5, 0) (7, 1) (8, 0);
-    TERM stunning := (7.5, 0) (9, 1) (10, 1);
+    TERM poor := (0,1) (3,1) (5,0);
+    TERM average := (4,0) (6.5,1) (8,0);
+    TERM stunning := (7,0) (10,1);
 END_FUZZIFY
 
 FUZZIFY culturalImpact
-    TERM low := (0, 1) (4, 1) (6, 0);
-    TERM moderate := (5, 0) (7, 1) (8, 0);
-    TERM high := (7.5, 0) (9, 1) (10, 1);
+    TERM low := (0,1) (3,1) (5,0);
+    TERM moderate := (4,0) (6.5,1) (8,0);
+    TERM high := (7,0) (10,1);
 END_FUZZIFY
 
 DEFUZZIFY quality
-    TERM poor := (0, 1) (20, 1) (40, 0);
-    TERM good := (35, 0) (55, 1) (75, 0);
-    TERM excellent := (70, 0) (85, 1) (100, 1);
+    TERM veryPoor := (0,1) (7,1) (20,0);
+    TERM poor := (12,0) (27,1) (44,0);
+    TERM fair := (40,0) (58,1) (74,0);
+    TERM good := (70,0) (77,1) (90,0);
+    TERM excellent := (86,0) (93,1) (100,1);
     METHOD : COG;
     DEFAULT := 50;
 END_DEFUZZIFY
@@ -56,41 +61,21 @@ RULEBLOCK rules
     ACT : MIN;
     ACCU : MAX;
 
-    RULE 1 : IF directorQuality IS excellent AND actingQuality IS excellent AND storyQuality IS excellent
-             THEN quality IS excellent;
-
-    RULE 2 : IF visualEffects IS stunning AND directorQuality IS excellent AND culturalImpact IS high
-             THEN quality IS excellent;
-
-    RULE 3 : IF actingQuality IS excellent AND storyQuality IS excellent AND culturalImpact IS high
-             THEN quality IS excellent;
-
-    RULE 4 : IF directorQuality IS good AND actingQuality IS good AND storyQuality IS good
-             THEN quality IS good;
-
-    RULE 5 : IF directorQuality IS excellent AND actingQuality IS good AND visualEffects IS average
-             THEN quality IS good;
-
-    RULE 6 : IF storyQuality IS excellent AND actingQuality IS good AND culturalImpact IS moderate
-             THEN quality IS good;
-
-    RULE 7 : IF visualEffects IS stunning AND storyQuality IS good AND actingQuality IS good
-             THEN quality IS good;
-
-    RULE 8 : IF directorQuality IS poor AND storyQuality IS poor
-             THEN quality IS poor;
-
-    RULE 9 : IF actingQuality IS poor AND storyQuality IS poor AND visualEffects IS poor
-             THEN quality IS poor;
-
-    RULE 10 : IF culturalImpact IS high AND directorQuality IS good AND actingQuality IS good AND visualEffects IS average
-              THEN quality IS good;
-
-    RULE 11 : IF directorQuality IS excellent AND storyQuality IS excellent AND culturalImpact IS high
-              THEN quality IS excellent;
-
-    RULE 12 : IF directorQuality IS excellent AND actingQuality IS excellent AND storyQuality IS good AND culturalImpact IS high
-              THEN quality IS excellent;
+    RULE 1 : IF directorQuality IS excellent AND actingQuality IS excellent AND storyQuality IS excellent THEN quality IS excellent;
+    RULE 2 : IF storyQuality IS excellent AND culturalImpact IS high THEN quality IS excellent;
+    RULE 3 : IF directorQuality IS excellent AND culturalImpact IS high THEN quality IS excellent;
+    RULE 4 : IF directorQuality IS good AND actingQuality IS good AND storyQuality IS good THEN quality IS good;
+    RULE 5 : IF storyQuality IS good AND culturalImpact IS moderate THEN quality IS good;
+    RULE 6 : IF visualEffects IS stunning AND (directorQuality IS good OR actingQuality IS good) THEN quality IS good;
+    RULE 7 : IF (directorQuality IS fair OR actingQuality IS fair OR storyQuality IS fair) THEN quality IS fair;
+    RULE 8 : IF visualEffects IS average AND (directorQuality IS fair OR actingQuality IS fair) THEN quality IS fair;
+    RULE 9 : IF directorQuality IS poor AND storyQuality IS poor THEN quality IS poor;
+    RULE 10 : IF actingQuality IS poor AND storyQuality IS poor AND visualEffects IS poor THEN quality IS veryPoor;
+    RULE 11 : IF culturalImpact IS low AND (directorQuality IS poor OR actingQuality IS poor) THEN quality IS poor;
+    RULE 12 : IF culturalImpact IS moderate AND (directorQuality IS fair OR actingQuality IS fair OR storyQuality IS fair) THEN quality IS good;
+    RULE 13 : IF visualEffects IS average AND (directorQuality IS poor OR actingQuality IS poor OR storyQuality IS poor) THEN quality IS poor;
+    RULE 14 : IF culturalImpact IS high AND storyQuality IS good THEN quality IS good;
+    RULE 15 : IF culturalImpact IS high AND (directorQuality IS good OR actingQuality IS good) AND storyQuality IS fair THEN quality IS good;
 
 END_RULEBLOCK
 
